@@ -1,5 +1,4 @@
 import Head from 'next/head'
-// import Card from '../../components/card'
 import Stats from '../../components/stats'
 import { fetchPokemon } from '../../scripts/fetchPokemon'
 import fetchPokemonDamageRelations from '../../scripts/fetchPokemonDamageRelations'
@@ -8,7 +7,7 @@ import DamageRelation from '../../components/damageRelation'
 import styled from '@emotion/styled'
 import normalizeId from '../../scripts/normalizeId'
 
-const Pokedex = ( { pokemon, doubleDamageTo, doubleDamageFrom } ) => {
+const Pokedex = ( { pokemon, doubleDamageTo, doubleDamageFrom, results } ) => {
 
   const Image = styled.img`
   width: 25%;
@@ -21,27 +20,28 @@ const Pokedex = ( { pokemon, doubleDamageTo, doubleDamageFrom } ) => {
         <title>{ pokemon.name.toUpperCase() }</title>
       </Head>
 
-        <h1>{ pokemon.name }</h1>
+      {results }
 
-        <Image src={ `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${normalizeId( pokemon.id )}.png` } alt={ `Is the pokemon called ${ pokemon.name }` } />
+      <h1>{ pokemon.name }</h1>
 
-        <Stats stats={ pokemon.stats } />
-        {/* se podria implementar las estadisticas con chart.js */ }
+      <Image src={ `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${ normalizeId( pokemon.id ) }.png` } alt={ `Is the pokemon called ${ pokemon.name }` } />
 
-        <h2>Type</h2>
-        {
-          pokemon.types.map( ( element, index ) => {
-            return (
-              <PokemonTypes key={ index } type={ element.type.name } />
-            )
-          } )
-        }
-        <DamageRelation title='Advantage' pokemonType={ pokemon.types } weakness={ doubleDamageTo } />
+      <Stats stats={ pokemon.stats } />
+      {/* se podria implementar las estadisticas con chart.js */ }
 
-        <DamageRelation title='Weakness' pokemonType={ pokemon.types } weakness={ doubleDamageFrom } />
+      <h2>Type</h2>
+      {
+        pokemon.types.map( ( element, index ) => {
+          return (
+            <PokemonTypes key={ index } type={ element.type.name } />
+          )
+        } )
+      }
+      <DamageRelation title='Advantage' pokemonType={ pokemon.types } weakness={ doubleDamageTo } />
 
+      <DamageRelation title='Weakness' pokemonType={ pokemon.types } weakness={ doubleDamageFrom } />
 
-        {/* component to next and previu pokemon */ }
+      {/* component to next and previu pokemon */ }
 
     </>
   )

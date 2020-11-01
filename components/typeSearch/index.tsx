@@ -84,7 +84,7 @@ export default function TypeSearch( { options, initialPokemons } ) {
           } )
         }
       </FlexContainer>
-      {isLoading ? <Loading src="/loading.gif" /> : <div style={ { height: '45px' } } ></div> }
+      {isLoading ? <Loading src="/loading.gif" /> : null }
 
       <Button onClick={ handleClick } >{ pokemons.length === 0 ? 'Search' : 'Show More' }</Button>
 

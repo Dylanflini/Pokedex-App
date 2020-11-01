@@ -8,22 +8,31 @@ export default function useGetPokemonsByNames(input:string) {
   const [isLoading, setIsLoading] = React.useState( false )
   const allPokemonsNames = React.useRef( null )
 
-  async function search(){
-    const x = allPokemonsNames.current.filter( (element:string) => element.includes( input.toLowerCase() ) )
-    setIsLoading( true )
-    setPokemons( await getPokemonsByNames( x ) )
-    setIsLoading( false )
+  async function search() {
+    if(input.length > 2 ){
+      const x = allPokemonsNames.current.filter( (element:string) => element.includes( input.toLowerCase() ) )
+      setIsLoading( true )
+      setPokemons( await getPokemonsByNames( x ) )
+      setIsLoading( false )
+    }else{
+      setPokemons([])
+    }
   }
 
   async function getPokemonsByNames( names: string[] ) {
     let pokemones = []
 
-    for ( let name of names ) {
-      const pokemon = await fetchPokemon( name )
-      if ( pokemon !== null ) {
-        pokemones = pokemones.concat( pokemon )
+    if(names.length !== 0){
+
+      for ( let name of names ) {
+        const pokemon = await fetchPokemon( name )
+        if ( pokemon !== null ) {
+          pokemones = pokemones.concat( pokemon )
+        }
       }
+      
     }
+
 
     return pokemones
   }

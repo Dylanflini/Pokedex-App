@@ -1,6 +1,4 @@
 import Head from 'next/head'
-// import styles from '../styles/Home.module.css'
-import Search from '../components/search'
 import TypeSearch from '../components/typeSearch'
 import fetchPokemons from '../scripts/fetchPokemons'
 import fetchPokemonTypes from '../scripts/fetchPokemonTypes'
@@ -12,7 +10,7 @@ const Container = styled.div`
   margin: 0 auto;
 `
 
-export default function Home( { options, initialPokemons } ) {
+export default function Home( { options, initialPokemons, results } ) {
 
   return (
     <div>
@@ -22,7 +20,7 @@ export default function Home( { options, initialPokemons } ) {
 
 
       <Container>
-        <Search />
+        { results }
         <TypeSearch
           options={ options }
           initialPokemons={ initialPokemons }

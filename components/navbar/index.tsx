@@ -16,11 +16,12 @@ const Nav = styled.nav`
       0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(231, 148, 148, 0.12);
 `
 
-function NavBar() {
+function NavBar( { buscador } ) {
   return (
-      <Nav>
-        <Link href='/' >index</Link>
-      </Nav>
+    <Nav>
+      <Link href='/' >Home</Link>
+      {buscador }
+    </Nav>
   )
 }
 
