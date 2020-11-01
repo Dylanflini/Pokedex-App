@@ -3,13 +3,13 @@ import axios from 'axios'
 import { fetchPokemon } from '../scripts/fetchPokemon'
 import fetchPokemons from '../scripts/fetchPokemons'
 
-type pokemon = {
-  name: string,
-  id: number,
-  types: []
-}
+// type pokemon = {
+//   name: string,
+//   id: number,
+//   types: []
+// }
 
-export default function useGetPokemons( initialPokemons: pokemon[], INITIAL_VALUE: string, value: string, isShowMore: boolean ) {
+export default function useGetPokemons( initialPokemons, INITIAL_VALUE: string, value: string, isShowMore: boolean ) {
 
   const [pokemons, setPokemons] = React.useState( initialPokemons )
   const [limit, setLimit] = React.useState( -1 )
@@ -41,24 +41,15 @@ export default function useGetPokemons( initialPokemons: pokemon[], INITIAL_VALU
     let pokemones = []
     try {
       const result = await axios.get( `https://pokeapi.co/api/v2/type/${ value }` )
-      let pokemon: pokemon
       let count: number = 0
 
       for ( let index = pokemons.length; index < result.data.pokemon.length; index++ ) {
         count++
-        const data = await fetchPokemon( result.data.pokemon[index].pokemon.name )
+        const pokemon = await fetchPokemon( result.data.pokemon[index].pokemon.name )
 
-        pokemon = {
-          name: data.name,
-          id: data.id,
-          types: data.types
+        if ( pokemon !== null ) {
+          pokemones.push( pokemon )
         }
-
-        if ( pokemon.id >= 10000 ) {
-          continue
-        }
-
-        pokemones.push( pokemon )
 
         if ( count >= limit ) {
           break

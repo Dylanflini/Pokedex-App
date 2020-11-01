@@ -5,10 +5,10 @@ import useGetPokemons from '../../hooks/useGetPokemons'
 import Button from '../Button'
 
 const FlexContainer = styled.div`
-  display: flex;
   margin: 0;
   padding: 0;
   margin: 0 6px;
+  display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   &::after{

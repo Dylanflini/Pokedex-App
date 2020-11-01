@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import Card from '../../components/card'
+// import Card from '../../components/card'
 import Stats from '../../components/stats'
 import { fetchPokemon } from '../../scripts/fetchPokemon'
 import fetchPokemonDamageRelations from '../../scripts/fetchPokemonDamageRelations'
@@ -21,7 +21,6 @@ const Pokedex = ( { pokemon, doubleDamageTo, doubleDamageFrom } ) => {
         <title>{ pokemon.name.toUpperCase() }</title>
       </Head>
 
-      <main>
         <h1>{ pokemon.name }</h1>
 
         <Image src={ `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${normalizeId( pokemon.id )}.png` } alt={ `Is the pokemon called ${ pokemon.name }` } />
@@ -44,7 +43,6 @@ const Pokedex = ( { pokemon, doubleDamageTo, doubleDamageFrom } ) => {
 
         {/* component to next and previu pokemon */ }
 
-      </main>
     </>
   )
 }

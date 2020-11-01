@@ -3,6 +3,8 @@ import React from 'react'
 import styled from '@emotion/styled'
 
 const Nav = styled.nav`
+  position: fixed;
+  width:100%;
   height: 50px;
   background-color: rgb(224,0,48);
   color: white;
@@ -15,9 +17,9 @@ const Nav = styled.nav`
 
 function NavBar() {
   return (
-    <Nav>
-      <Link href='/' >index</Link>
-    </Nav>
+      <Nav>
+        <Link href='/' >index</Link>
+      </Nav>
   )
 }
 

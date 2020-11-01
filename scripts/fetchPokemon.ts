@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-interface pokemon {
+type pokemon = {
   name: string,
   id: number,
   types: [],
@@ -10,17 +10,17 @@ interface pokemon {
   height: number,
 }
 
-const DEFAULT_POKEMON:pokemon = {
-  name: '',
-  id: 0,
-  types: [],
-  wasFound: false,
-  stats: [],
-  weight: 0,
-  height: 0,
-}
+// const DEFAULT_POKEMON:pokemon = {
+//   name: '',
+//   id: 0,
+//   types: [],
+//   wasFound: false,
+//   stats: [],
+//   weight: 0,
+//   height: 0,
+// }
 
-async function fetchPokemon(pokemonName:string){
+async function fetchPokemon(pokemonName:string) {
   
   try {
 
@@ -35,18 +35,19 @@ async function fetchPokemon(pokemonName:string){
       weight: data.weight,
       height: data.height,
     }
-
-    if (pokemon.name === undefined){
-      return DEFAULT_POKEMON
+    
+    if (pokemon.name === undefined || pokemon.id >= 10000){
+      return null
     }
+
     return pokemon
 
   } catch{
 
-    const pokemon:pokemon = DEFAULT_POKEMON
-    return pokemon
+    // const pokemon:pokemon = DEFAULT_POKEMON
+    return null
   }
 
 }
 
-export {fetchPokemon, DEFAULT_POKEMON}
+export {fetchPokemon}
