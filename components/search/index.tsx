@@ -44,10 +44,6 @@ function Search() {
     search()
   }
 
-  async function handleInputBlur() {
-    search()
-  }
-
   return (
     <>
       <Form onSubmit={ handleSubmit } >
@@ -56,7 +52,6 @@ function Search() {
           type="text"
           value={ input }
           onChange={ handleChange }
-          onBlur={ handleInputBlur }
         >
         </Input>
       </Form>
