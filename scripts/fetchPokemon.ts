@@ -5,6 +5,9 @@ interface pokemon {
   id: number,
   types: [],
   wasFound: boolean,
+  stats: [],
+  weight: number,
+  height: number,
 }
 
 const DEFAULT_POKEMON:pokemon = {
@@ -12,10 +15,13 @@ const DEFAULT_POKEMON:pokemon = {
   id: 0,
   types: [],
   wasFound: false,
+  stats: [],
+  weight: 0,
+  height: 0,
 }
 
 async function fetchPokemon(pokemonName:string){
-
+  
   try {
 
     const { data } = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
@@ -25,6 +31,9 @@ async function fetchPokemon(pokemonName:string){
       id: data.id,
       types: data.types,
       wasFound: true,
+      stats: data.stats,
+      weight: data.weight,
+      height: data.height,
     }
 
     if (pokemon.name === undefined){

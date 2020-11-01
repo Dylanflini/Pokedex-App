@@ -9,7 +9,7 @@ export default async function fetchPokemons(limit:number = 20 , offset:number = 
     types: []
   }
 
-  try {
+    try {
     const { data } = await axios.get( `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}` )
     
     let pokemons:pokemon[] = []

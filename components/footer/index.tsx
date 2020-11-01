@@ -15,7 +15,7 @@ const P = styled.p`
 function Footer() {
   return (
     <Container>
-      <P>© SVR Ingeniería {new Date().getFullYear()}</P>
+      <P>© Pokedex App {new Date().getFullYear()}</P>
     </Container>
   )
 }
