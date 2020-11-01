@@ -6,7 +6,7 @@ import fetchPokemons from '../scripts/fetchPokemons'
 import fetchPokemonTypes from '../scripts/fetchPokemonTypes'
 import styled from '@emotion/styled'
 
-const Container = styled.div`
+const Container = styled.main`
   max-width: 1200px;
   margin: 0 auto;
 `
@@ -30,7 +30,10 @@ export default function Home( { options, initialPokemons } ) {
   )
 }
 
-Home.getInitialProps = async ( ) => {
+Home.getInitialProps = async () => {
 
-  return { options: await fetchPokemonTypes(), initialPokemons: await fetchPokemons( 20, 0 ) }
+  return {
+    options: await fetchPokemonTypes(),
+    initialPokemons: await fetchPokemons( 20, 0 )
+  }
 }

@@ -1,35 +1,31 @@
 import React from 'react'
 import PokemonTypes from '../pokemonTypes'
 
-function Weakness( { name } ) {
-  return (
-    <PokemonTypes type={ name } />
-  )
-}
+export default function DamageRelation( { title, weakness, pokemonType } ) {
 
-function Advantage( { name } ) {
-  return (
-    <PokemonTypes type={ name } />
-  )
-}
+  function filterSameTypes( weakness, pokemonType, index = 0 ) {
 
-function DamageRelation( { relation } ) {
+    if ( index >= pokemonType.length || pokemonType.length === 1) {
+      return weakness
+    } else {
+      const found = weakness.filter( ( item ) => item.name !== pokemonType[index].type.name )
+      return filterSameTypes( found, pokemonType, index + 1 )
+    }
+
+  }
+
+  const filtrado = filterSameTypes( weakness, pokemonType )
+
   return (
     <>
-      <h2>Advantage</h2>
+      <h2>{ title }</h2>
       {
-        relation.doubleDamageTo.map( ( element, index ) => {
-          return ( <Advantage key={ index } name={ element.name } /> )
-        } )
-      }
-      <h2>Weakness</h2>
-      {
-        relation.doubleDamageFrom.map( ( element, index ) => {
-          return ( <Weakness key={ index } name={ element.name } /> )
+        filtrado.map( ( element, index ) => {
+          return (
+            <PokemonTypes key={ index } type={ element.name } />
+          )
         } )
       }
     </>
   )
 }
-
-export default DamageRelation

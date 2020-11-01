@@ -91,14 +91,14 @@ function PokemonTypes( { type } ) {
   const Container = styled.div`
   border-radius: 4px;
   background: ${ color };
-  padding: 6px;
+  /* color: white; */
   display: inline-block;
   width: min-content;
   font-size:14px;
   border-radius: 4px;
-  padding: 4px;
+  padding: 4px 12px;
   margin-top: 4px;
-  margin-right: 4px;
+  margin-right: 6px;
  `
 
   return (

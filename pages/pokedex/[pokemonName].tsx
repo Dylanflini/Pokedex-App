@@ -1,11 +1,19 @@
 import Head from 'next/head'
 import Card from '../../components/card'
 import Stats from '../../components/stats'
-import DamageRelation from '../../components/damageRelation'
 import { fetchPokemon } from '../../scripts/fetchPokemon'
 import fetchPokemonDamageRelations from '../../scripts/fetchPokemonDamageRelations'
+import PokemonTypes from '../../components/pokemonTypes'
+import DamageRelation from '../../components/damageRelation'
+import styled from '@emotion/styled'
+import normalizeId from '../../scripts/normalizeId'
 
-const Pokedex = ( { pokemon, damageRelations } ) => {
+const Pokedex = ( { pokemon, doubleDamageTo, doubleDamageFrom } ) => {
+
+  const Image = styled.img`
+  width: 25%;
+  height: auto;
+`
 
   return (
     <>
@@ -13,27 +21,30 @@ const Pokedex = ( { pokemon, damageRelations } ) => {
         <title>{ pokemon.name.toUpperCase() }</title>
       </Head>
 
-      { pokemon.wasFound === true ?
-        <Card
-          id={ pokemon.id }
-          name={ pokemon.name }
-          types={ pokemon.types }
-        /> :
-        null }
+      <main>
+        <h1>{ pokemon.name }</h1>
 
-      <Stats stats={ pokemon.stats } />
+        <Image src={ `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${normalizeId( pokemon.id )}.png` } alt={ `Is the pokemon called ${ pokemon.name }` } />
 
-      {/* se podria implementar las estadisticas con chart.js */ }
+        <Stats stats={ pokemon.stats } />
+        {/* se podria implementar las estadisticas con chart.js */ }
 
-      {
-        damageRelations.map( ( relation, index ) => {
-          return (
-            <DamageRelation key={ index } relation={ relation } />
-          )
-        } )
-      }
+        <h2>Type</h2>
+        {
+          pokemon.types.map( ( element, index ) => {
+            return (
+              <PokemonTypes key={ index } type={ element.type.name } />
+            )
+          } )
+        }
+        <DamageRelation title='Advantage' pokemonType={ pokemon.types } weakness={ doubleDamageTo } />
 
-      {/* component to next and previu pokemon */ }
+        <DamageRelation title='Weakness' pokemonType={ pokemon.types } weakness={ doubleDamageFrom } />
+
+
+        {/* component to next and previu pokemon */ }
+
+      </main>
     </>
   )
 }
@@ -42,11 +53,12 @@ const Pokedex = ( { pokemon, damageRelations } ) => {
 Pokedex.getInitialProps = async ( ctx: any ) => {
 
   const pokemon = await fetchPokemon( ctx.query.pokemonName )
-  const damageRelations = await fetchPokemonDamageRelations( pokemon.types )
+  const [doubleDamageTo, doubleDamageFrom] = await fetchPokemonDamageRelations( pokemon.types )
 
   return {
     pokemon,
-    damageRelations,
+    doubleDamageTo,
+    doubleDamageFrom,
   }
 }
 

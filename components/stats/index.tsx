@@ -10,7 +10,9 @@ function Chart( { baseState, name } ) {
 
   const Bar = styled.div`
     background-color: lightblue;
+    border: 1px solid blue;
     width: 1rem;
+    border-radius: 4px;
     height: ${ baseState }px;
     margin: 0 auto;
   `
@@ -26,7 +28,7 @@ function Chart( { baseState, name } ) {
   return (
     <Container>
       <Bar title={ baseState } />
-      <P>{ name.replace('-', ' ') }</P>
+      <P>{ name.replace( '-', ' ' ) }</P>
     </Container>
   )
 }
@@ -41,13 +43,16 @@ function Stats( { stats } ) {
 `
 
   return (
-    <Section>
-      {
-        stats.map( ( stat: any ) => {
-          return ( <Chart baseState={ stat.base_stat } name={ stat.stat.name } /> )
-        } )
-      }
-    </Section>
+    <div>
+      <h2>Base point</h2>
+      <Section>
+        {
+          stats.map( ( stat, index ) => {
+            return ( <Chart key={index} baseState={ stat.base_stat } name={ stat.stat.name } /> )
+          } )
+        }
+      </Section>
+    </div>
   )
 }
 

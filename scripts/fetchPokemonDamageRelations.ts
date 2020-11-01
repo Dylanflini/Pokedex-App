@@ -2,32 +2,31 @@ import axios from 'axios'
 
 export default async function fetchPokemonDamageRelations(types:[]){
 
-  type damageRelations = {
-    doubleDamageTo: relation[],
-    doubleDamageFrom: relation[],
-  };
+  // type damageRelations = {
+  //   doubleDamageTo: relation[],
+  //   doubleDamageFrom: relation[],
+  // };
 
-  type relation = {
-    name: string,
-    url: string,
-  }
+  // type relation = {
+  //   name: string,
+  //   url: string,
+  // }
     
   async function x(names:[]) {
     
-    let damageRelation:damageRelations[] = [];
+    let doubleDamageTo = []
+    let doubleDamageFrom = []
+    // let damageRelation:damageRelations[] = [];
 
     for (let name of names){
       const { data } = await axios.get( `https://pokeapi.co/api/v2/type/${name.type.name}` )
 
-
-      damageRelation.push({
-        doubleDamageTo: data.damage_relations.double_damage_to,
-        doubleDamageFrom: data.damage_relations.double_damage_from,}
-      )
+      doubleDamageTo = [...doubleDamageTo, ...data.damage_relations.double_damage_to]
+      doubleDamageFrom = [...doubleDamageFrom, ...data.damage_relations.double_damage_from]
 
     }
 
-    return damageRelation;    
+    return [doubleDamageTo, doubleDamageFrom]
   }
 
   try {
