@@ -15,7 +15,7 @@ const Main = styled.main`
 function MyApp( { Component, pageProps } ) {
 
   const [input, setInput] = React.useState( '' )
-  const [pokemons, x, isLoading] = useGetPokemonsByNames( input )
+  const [pokemonsNames, x, isLoading] = useGetPokemonsByNames( input )
 
   return (
     <>
@@ -24,7 +24,7 @@ function MyApp( { Component, pageProps } ) {
       </Head>
       <NavBar buscador={ <Search input={ input } setInput={ setInput } search={ x } /> } />
       <Main>
-        <Component { ...pageProps } results={ <Results pokemons={ pokemons } isLoading={ isLoading } /> } />
+        <Component { ...pageProps } results={ <Results pokemons={ pokemonsNames } isLoading={ isLoading } /> } />
       </Main>
       <Footer />
     </>
