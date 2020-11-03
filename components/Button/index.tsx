@@ -7,7 +7,13 @@ type ButtonProps = {
   color?: string,
 }
 
-function Button( { children = 'button', onClick, color = '#2ecc71' }: ButtonProps ) {
+export const buttonPropsDefault = {
+  color: '#2ecc71',
+  children: 'button',
+}
+
+
+function Button( { children = buttonPropsDefault.children, onClick, color = buttonPropsDefault.color }: ButtonProps ) {
 
   const ButtonStyle = styled.button`
   position: relative;
