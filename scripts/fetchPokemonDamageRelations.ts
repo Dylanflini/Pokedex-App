@@ -12,13 +12,14 @@ export default async function fetchPokemonDamageRelations(types:[]){
   //   url: string,
   // }
     
-  async function x(names:[]) {
+  async function x(names:any) {
     
     let doubleDamageTo = []
     let doubleDamageFrom = []
     // let damageRelation:damageRelations[] = [];
 
     for (let name of names){
+
       const { data } = await axios.get( `https://pokeapi.co/api/v2/type/${name.type.name}` )
 
       doubleDamageTo = [...doubleDamageTo, ...data.damage_relations.double_damage_to]

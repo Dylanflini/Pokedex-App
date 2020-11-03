@@ -11,13 +11,25 @@ const Container = styled.div`
 `
 
 export default function Home( { options, initialPokemons, results } ) {
+// export default function Home( { results } ) {
+
+
+  // const [options, setOptions] = React.useState( [] )
+  // const [initialPokemons, setInitialPokemons] = React.useState( [] )
+
+  // React.useEffect( () => {
+  //   async function fetch() {
+  //     setOptions( await fetchPokemonTypes() )
+  //     setInitialPokemons( await fetchPokemons( 20, 0 ) )
+  //   }
+  //   fetch()
+  // }, [] )
 
   return (
     <div>
       <Head>
         <title>Pokedex API 🐤 </title>
       </Head>
-
 
       <Container>
         { results }

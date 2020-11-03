@@ -1,7 +1,13 @@
 import styled from '@emotion/styled'
 import React from 'react'
 
-function Button( { children, onClick, color = '#2ecc71' } ) {
+type ButtonProps = {
+  children?: string,
+  onClick: () => void,
+  color?: string,
+}
+
+function Button( { children = 'button', onClick, color = '#2ecc71' }: ButtonProps ) {
 
   const ButtonStyle = styled.button`
   position: relative;
