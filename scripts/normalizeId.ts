@@ -1,6 +1,6 @@
 
-export default function normalizeId(id){
-  
+export default function normalizeId( id: number ) {
+
   function addZeroLeft( string: string ) {
     if ( string.length < 3 ) {
       string = "0".concat( string )
@@ -13,7 +13,7 @@ export default function normalizeId(id){
   if ( id < 100 ) {
     const x: string = id.toString()
     return addZeroLeft( x )
-  }else{
+  } else {
     return id
   }
 

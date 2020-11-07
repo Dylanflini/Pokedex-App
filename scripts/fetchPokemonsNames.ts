@@ -1,20 +1,14 @@
 import axios from 'axios'
-import {fetchPokemon} from './fetchPokemon'
+import {fetchPokemon, Pokemon} from './fetchPokemon'
 
-export default async function fetchPokemons(limit:number = 20 , offset:number = 0, pokemonNames:boolean=false) {
-
-  interface pokemon {
-    name: string,
-    id: number
-    types: []
-  }
+export default async function fetchPokemonsNames(limit:number = 20 , offset:number = 0, pokemonNames:boolean=false) {
 
     try {
       const { data } = await axios.get( `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}` )
 
       if ( pokemonNames === false){
         
-        let pokemons:pokemon[] = []
+        let pokemons:Pokemon[] = []
       
         for (let {name} of data.results){
           const pokemon = await fetchPokemon( name )

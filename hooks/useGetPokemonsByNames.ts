@@ -1,6 +1,7 @@
 import React from 'react'
 import { fetchPokemon } from '../scripts/fetchPokemon'
-import fetchPokemons from '../scripts/fetchPokemons'
+import fetchPokemonsNames from '../scripts/fetchPokemonsNames'
+import { getPokemonsByNames } from '../scripts/getPokemonByNames'
 
 export default function useGetPokemonsByNames(input:string) {
   
@@ -19,27 +20,9 @@ export default function useGetPokemonsByNames(input:string) {
     }
   }
 
-  async function getPokemonsByNames( names: string[] ) {
-    let pokemones = []
-
-    if(names.length !== 0){
-
-      for ( let name of names ) {
-        const pokemon = await fetchPokemon( name )
-        if ( pokemon !== null ) {
-          pokemones = pokemones.concat( pokemon )
-        }
-      }
-      
-    }
-
-
-    return pokemones
-  }
-
   React.useEffect( () => {
     async function fetch() {
-      allPokemonsNames.current = await fetchPokemons( 900, 0, true )
+      allPokemonsNames.current = await fetchPokemonsNames( 900, 0, true )
     }
     fetch()
   }, [] )

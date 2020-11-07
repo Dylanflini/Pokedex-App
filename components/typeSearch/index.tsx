@@ -1,21 +1,8 @@
 import React from 'react'
-import Card from '../card'
 import styled from '@emotion/styled'
 import useGetPokemons from '../../hooks/useGetPokemons'
-import Button from '../Button'
-
-const FlexContainer = styled.div`
-  margin: 0;
-  padding: 0;
-  margin: 0 6px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  &::after{
-    content: '';
-    flex: auto;
-  }
-`
+import Button from '../button'
+import PokemonsCard from '../pokemonsCard'
 
 const Option = styled.option`
   /* background-color: blue;
@@ -42,27 +29,46 @@ const Loading = styled.img`
   display: block;
 `
 
-export default function TypeSearch( { options, initialPokemons } ) {
+export default function TypeSearch( { options } ) {
 
   const INITIAL_VALUE = 'all'
-  const [value, setValue] = React.useState( INITIAL_VALUE )
+  const [type, setType] = React.useState( INITIAL_VALUE )
   const [isShowMore, setIsShowMore] = React.useState( true )
 
-  const [pokemons, handleReset, isLoading] = useGetPokemons( initialPokemons, INITIAL_VALUE, value, isShowMore )
+  const [pokemons, handleReset, isLoading] = useGetPokemons( INITIAL_VALUE, type, isShowMore )
 
-  async function handleOnChange( e: any ) {
+  function handleOnChange( e: any ) {
     handleReset()
-    setValue( e.target.value )
+    setType( e.target.value )
   }
-  async function handleClick() {
+  function handleClick() {
     setIsShowMore( !isShowMore )
   }
+
+  // const option = {
+  //   rootMargin: '30px',
+  //   threshold: 1,
+  // }
+
+  
+  // const callback = function ( entries, observer ) {
+  //   entries.forEach( entry => {
+  //     console.log('entrando por observer')
+  //   } )
+  // }
+  
+  // const observer = new IntersectionObserver( callback, option );
+
+  // var target = document.querySelector('');
+  // observer.observe(target);
+  
+
 
   return (
     <>
       <Form>
         <span>Select type of Pokemon </span>
-        <Select value={ value } onChange={ handleOnChange }>
+        <Select value={ type } onChange={ handleOnChange }>
           <Option value={ INITIAL_VALUE }>{ INITIAL_VALUE }</Option>
           {
             options.map( ( { name }, i: number ) => {
@@ -72,18 +78,7 @@ export default function TypeSearch( { options, initialPokemons } ) {
         </Select>
       </Form>
       <Button color='#c01611' onClick={ handleReset } >Resetear</Button>
-      <FlexContainer>
-        {
-          pokemons.map( ( pokemon: any, i: number ) => {
-            return ( <Card
-              key={ i } 
-              name={ pokemon.name } 
-              id={ pokemon.id } 
-              types={ pokemon.types } 
-              /> )
-          } )
-        }
-      </FlexContainer>
+      <PokemonsCard pokemons={ pokemons } />
       {isLoading ? <Loading src="/loading.gif" /> : null }
 
       <Button onClick={ handleClick } >{ pokemons.length === 0 ? 'Search' : 'Show More' }</Button>

@@ -1,22 +1,12 @@
 import axios from 'axios'
+import { PokemonTypes } from './fetchPokemon'
 
-export default async function fetchPokemonDamageRelations(types:[]){
+export default async function fetchPokemonDamageRelations(types:PokemonTypes[]){
 
-  // type damageRelations = {
-  //   doubleDamageTo: relation[],
-  //   doubleDamageFrom: relation[],
-  // };
-
-  // type relation = {
-  //   name: string,
-  //   url: string,
-  // }
-    
   async function x(names:any) {
     
     let doubleDamageTo = []
     let doubleDamageFrom = []
-    // let damageRelation:damageRelations[] = [];
 
     for (let name of names){
 

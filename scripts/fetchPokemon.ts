@@ -1,32 +1,32 @@
 import axios from 'axios'
 
-type pokemon = {
+export type PokemonTypes = {
+  type: { name: string },
+}
+
+export default interface PokemonName {
   name: string,
+}
+
+export interface PokemonCard extends PokemonName {
   id: number,
-  types: [],
+  types: PokemonTypes[],
+}
+
+export interface Pokemon extends PokemonCard {
   wasFound: boolean,
   stats: [],
   weight: number,
   height: number,
 }
 
-// const DEFAULT_POKEMON:pokemon = {
-//   name: '',
-//   id: 0,
-//   types: [],
-//   wasFound: false,
-//   stats: [],
-//   weight: 0,
-//   height: 0,
-// }
+async function fetchPokemon( pokemonName: string ) {
 
-async function fetchPokemon(pokemonName:string) {
-  
   try {
 
-    const { data } = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
+    const { data } = await axios.get( `https://pokeapi.co/api/v2/pokemon/${ pokemonName }` )
 
-    const pokemon:pokemon = {
+    const pokemon: Pokemon = {
       name: data.name,
       id: data.id,
       types: data.types,
@@ -35,19 +35,18 @@ async function fetchPokemon(pokemonName:string) {
       weight: data.weight,
       height: data.height,
     }
-    
-    if (pokemon.name === undefined || pokemon.id >= 10000){
+
+    if ( pokemon.name === undefined || pokemon.id >= 10000 ) {
       return null
     }
 
     return pokemon
 
-  } catch{
-
-    // const pokemon:pokemon = DEFAULT_POKEMON
+  } catch ( error ) {
+    console.log( error )
     return null
   }
 
 }
 
-export {fetchPokemon}
+export { fetchPokemon }

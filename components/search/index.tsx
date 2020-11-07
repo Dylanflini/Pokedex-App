@@ -8,6 +8,7 @@ const Form = styled.form`
 const Input = styled.input`
   padding: 4px;
   width: 300px;
+  border-radius: 4px;
 `
 
 export default function Search( { input, setInput, search } ) {
@@ -24,7 +25,7 @@ export default function Search( { input, setInput, search } ) {
   return (
     <Form onSubmit={ handleSubmit } >
       <Input
-        placeholder="type Pokemon name"
+        placeholder="Type Pokemon name"
         type="text"
         value={ input }
         onChange={ handleChange }

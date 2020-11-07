@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, fireEvent, waitFor, screen, RenderResult } from '@testing-library/react'
-import '@testing-library/jest-dom/extend-expect'
+import '../button/node_modules/@testing-library/jest-dom/extend-expect'
 import PokemonTypes, { TypesColors } from './index'
 
 describe( "Testing PokemonTypes component", () => {

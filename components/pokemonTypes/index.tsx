@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from '@emotion/styled'
 
-const colors = [
+export const TypesColors = [
   {
     "color": "#A4ACAF",
     "name": "normal"
@@ -86,7 +86,7 @@ const colors = [
 
 function PokemonTypes( { type } ) {
 
-  const { color } = colors.find( element => element.name === type )
+  const { color } = TypesColors.find( element => element.name === type )
 
   const Container = styled.div`
   border-radius: 4px;
