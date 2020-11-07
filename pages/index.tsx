@@ -18,9 +18,9 @@ export default function Home({ options, results }) {
 
       <Container>
         {results}
-        <TypeSearch
+        {/* <TypeSearch
           options={ options }
-        />
+        /> */}
       </Container>
     </div>
   )

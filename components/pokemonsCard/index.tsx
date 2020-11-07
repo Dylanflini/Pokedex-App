@@ -64,11 +64,7 @@ const Card = React.memo(
           <Image src={ `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${ id }.png` } alt={ `Is the pokemon called ${ name }` } />
           <Id>Nº: { id }</Id>
           <Name>{ name }</Name>
-          {
-            types.map( ( { type }, index: number ) => {
-              return ( <PokemonTypes key={ index } type={ type.name } /> )
-            } )
-          }
+          <PokemonTypes types={ types } />
         </CardContainer>
       </Link>
     )

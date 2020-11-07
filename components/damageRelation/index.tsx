@@ -5,7 +5,7 @@ export default function DamageRelation( { title, weakness, pokemonType } ) {
 
   function filterSameTypes( weakness, pokemonType, index = 0 ) {
 
-    if ( index >= pokemonType.length || pokemonType.length === 1) {
+    if ( index >= pokemonType.length || pokemonType.length === 1 ) {
       return weakness
     } else {
       const found = weakness.filter( ( item ) => item.name !== pokemonType[index].type.name )
@@ -19,13 +19,7 @@ export default function DamageRelation( { title, weakness, pokemonType } ) {
   return (
     <>
       <h2>{ title }</h2>
-      {
-        filtrado.map( ( element, index ) => {
-          return (
-            <PokemonTypes key={ index } type={ element.name } />
-          )
-        } )
-      }
+      {/* <PokemonTypes types={ pokemonType } /> */}
     </>
   )
 }

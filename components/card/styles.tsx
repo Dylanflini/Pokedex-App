@@ -1,11 +1,11 @@
 import styled from '@emotion/styled'
 
 export const CardContainer = styled.div`
-  flex: 1 1 160px;
-  max-width: 300px;
+  flex: .5 .8 160px;
+  max-width: 200px;
   margin: 6px;
   padding: 10px;
-  background-color: hotpink;
+  background-color: #c0c0c0;
   font-size: 16px;
   border-radius: 4px;
   color: black;
@@ -30,9 +30,19 @@ export const Id = styled.p`
   margin-bottom: 6px;
 `
 
-export const Name = styled.p`
+export const Title = styled.p`
   font-size:16px;
   margin: 0;
   padding: 0;
   margin-bottom: 4px;
+`
+
+export const Description = styled.p`
+  font-size:12px;
+  /* background-color: red; */
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  height: max-content;
 `

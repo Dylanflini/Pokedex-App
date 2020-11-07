@@ -30,13 +30,9 @@ const Pokedex = ( { pokemon, doubleDamageTo, doubleDamageFrom, results } ) => {
       {/* se podria implementar las estadisticas con chart.js */ }
 
       <h2>Type</h2>
-      {
-        pokemon.types.map( ( element, index ) => {
-          return (
-            <PokemonTypes key={ index } type={ element.type.name } />
-          )
-        } )
-      }
+
+      <PokemonTypes types={ pokemon.types } />
+      
       <DamageRelation title='Advantage' pokemonType={ pokemon.types } weakness={ doubleDamageTo } />
 
       <DamageRelation title='Weakness' pokemonType={ pokemon.types } weakness={ doubleDamageFrom } />

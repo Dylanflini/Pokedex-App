@@ -84,13 +84,16 @@ export const TypesColors = [
   }]
 
 
-function PokemonTypes( { type } ) {
+function Container( { type } ) {
+  console.log('type: ' , type.type.name)
 
-  const { color } = TypesColors.find( element => element.name === type )
+  const { color } = TypesColors.find( element => element.name === type.type.name )
 
-  const Container = styled.div`
+  console.log('color ' , TypesColors[0].name)
+
+  const ContainerStyle = styled.div`
   border-radius: 4px;
-  background: ${ color };
+  background: ${color};
   /* color: white; */
   display: inline-block;
   width: min-content;
@@ -102,9 +105,20 @@ function PokemonTypes( { type } ) {
  `
 
   return (
-    <Container>
-      {type }
-    </Container>
+    <ContainerStyle>
+      { type.type.name }
+    </ContainerStyle>
+  )
+}
+
+
+function PokemonTypes( { types = [] } ) {
+  return (
+    <>
+      {
+        types.map( ( type, index: number ) => ( <Container key={ index } type={ type } /> ) )
+      }
+    </>
   )
 }
 
