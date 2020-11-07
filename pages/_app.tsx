@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Footer from '../components/footer'
 import NavBar from '../components/navbar'
 import '../styles/globals.css'
+// import styled from 'styled-components'
 import styled from '@emotion/styled'
 import React from 'react'
 import useGetPokemonsByNames from '../hooks/useGetPokemonsByNames'
@@ -14,19 +15,19 @@ const Main = styled.main`
 
 function MyApp( { Component, pageProps } ) {
 
-  const [input, setInput] = React.useState( '' )
-  const [pokemonsNames, x, isLoading] = useGetPokemonsByNames( input )
+  const [pokemonSearches, setPokemonSearches] = React.useState( '' )
+  const [pokemonsNames, isLoading] = useGetPokemonsByNames( pokemonSearches )
 
   return (
     <>
       <Head>
         <link rel="icon" href="/pokemon_icon.svg" />
       </Head>
-      <NavBar buscador={ <Search input={ input } setInput={ setInput } search={ x } /> } />
+      <NavBar buscador={ <Search setPokemonSearches={ setPokemonSearches } /> } />
       <Main>
-        <Component { ...pageProps } results={ <Results pokemons={ pokemonsNames } isLoading={ isLoading } /> } />
+        <Component { ...pageProps } results={ <Results pokemonsBySearch={ pokemonsNames } isLoading={ isLoading } /> } />
       </Main>
-      <Footer />
+      <Footer text='© Pokedex App ' />
     </>
   )
 }

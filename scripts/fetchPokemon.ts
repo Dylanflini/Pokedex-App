@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export type PokemonTypes = {
-  type: { name: string },
+  type: string,
 }
 
 export default interface PokemonName {

@@ -1,9 +1,11 @@
 import React from 'react'
 import Link from 'next/link'
+// import styled 'styled-components'
 import styled from '@emotion/styled'
-import PokemonTypes from '../pokemonTypes'
+// import PokemonTypes from '../pokemonTypes'
 import { PokemonCard } from '../../scripts/fetchPokemon'
-import FlexContainer from '../flexContainer'
+import PokemonTypes from '../pokemonTypes'
+// import FlexContainer from '../flexContainer'
 
 const CardContainer = styled.div`
   flex: .8 1 160px;
@@ -28,14 +30,14 @@ const Image = styled.img`
   height: auto;
 `
 
-const Id = styled.p`
+const Id = styled.div`
   font-size:10px;
   margin: 0;
   padding: 0;
   margin-bottom: 6px;
 `
 
-const Name = styled.p`
+const Name = styled.div`
   font-size:16px;
   margin: 0;
   padding: 0;
@@ -60,12 +62,14 @@ const Card = React.memo(
 
     return (
       <Link href={ `/pokedex/${ name }` }>
-        <CardContainer className="hola" >
-          <Image src={ `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${ id }.png` } alt={ `Is the pokemon called ${ name }` } />
-          <Id>Nº: { id }</Id>
-          <Name>{ name }</Name>
-          <PokemonTypes types={ types } />
-        </CardContainer>
+        <a>
+          <CardContainer className="hola" >
+            <Image src={ `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${ id }.png` } alt={ `Is the pokemon called ${ name }` } />
+            <Id>Nº: { id }</Id>
+            <Name>{ name }</Name>
+            <PokemonTypes types={ types } />
+          </CardContainer>
+        </a>
       </Link>
     )
   }
@@ -73,7 +77,7 @@ const Card = React.memo(
 
 export default function PokemonsCard( { pokemons } ) {
   return (
-    <FlexContainer id="list-pokemons" >
+    // <FlexContainer id="list-pokemons" >
       {
         pokemons.map( ( pokemon: any, i: number ) => {
           return ( <Card
@@ -84,6 +88,6 @@ export default function PokemonsCard( { pokemons } ) {
           /> )
         } )
       }
-    </FlexContainer>
+    // </FlexContainer>
   )
 }

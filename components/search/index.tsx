@@ -1,25 +1,36 @@
-import React from 'react'
+import React, { useState } from 'react'
+// import styled from 'styled-components'
 import styled from '@emotion/styled'
+import Button from '../boton'
 
 const Form = styled.form`
-  padding: 12px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 `
 
 const Input = styled.input`
   padding: 4px;
   width: 300px;
-  border-radius: 4px;
+  height: 20px;
+  margin: 0 1rem;
 `
 
-export default function Search( { input, setInput, search } ) {
+type search = {
+  setPokemonSearches: ( input ) => void
+}
+
+export default function Search( { setPokemonSearches }: search ) {
+
+  const [input, setInput] = useState( '' )
 
   function handleChange( e: any ) {
     setInput( e.target.value )
   }
 
-  async function handleSubmit( e: any ) {
+  const handleSubmit = ( e: any ) => {
     e.preventDefault()
-    search()
+    setPokemonSearches( input )
   }
 
   return (
@@ -31,6 +42,7 @@ export default function Search( { input, setInput, search } ) {
         onChange={ handleChange }
       >
       </Input>
+      <Button onClick={ handleSubmit } > Search </Button>
     </Form>
   )
 }

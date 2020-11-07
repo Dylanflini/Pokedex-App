@@ -3,7 +3,7 @@ import React from 'react'
 
 type ButtonProps = {
   children?: string,
-  onClick: () => void,
+  onClick: (e?: any) => void,
   color?: string,
 }
 
@@ -28,21 +28,17 @@ function Button( { children = buttonPropsDefault.children, onClick, color = butt
   background-color: ${ color };
   color: #ecf0f1;
   transition: background-color .3s;
-
   &:hover, &:focus {
     opacity: 0.8;
     cursor: pointer
   }
-
   & > * {
     position: relative;
   }
-
   & span {
     display: block;
     padding: 12px 24px;
   }
-
   &:before {
     content: "";
     
@@ -60,7 +56,6 @@ function Button( { children = buttonPropsDefault.children, onClick, color = butt
     -o-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
   }
-
   &:active:before {
     width: 120%;
     padding-top: 120%;

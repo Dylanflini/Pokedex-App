@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import TypeSearch from '../components/typeSearch'
 import fetchPokemonTypes from '../scripts/fetchPokemonTypes'
+// import styled from 'styled-components'
 import styled from '@emotion/styled'
 import React from 'react'
 
@@ -18,9 +19,9 @@ export default function Home({ options, results }) {
 
       <Container>
         {results}
-        {/* <TypeSearch
+        <TypeSearch
           options={ options }
-        /> */}
+        />
       </Container>
     </div>
   )

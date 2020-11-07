@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 import styled from '@emotion/styled'
+// import styled '@emotion/styled'
 
 const Nav = styled.nav`
   position: fixed;
@@ -16,10 +17,21 @@ const Nav = styled.nav`
       0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(231, 148, 148, 0.12);
 `
 
+const Brand = styled.img`
+  width: 50px;
+  &:hover{
+    cursor: pointer
+  }
+`
+
 function NavBar( { buscador } ) {
   return (
     <Nav>
-      <Link href='/' >Home</Link>
+      <Link href='/' >
+        <a>
+          <Brand src="/pokemon_icon.svg" />
+        </a>
+      </Link>
       {buscador }
     </Nav>
   )

@@ -1,4 +1,5 @@
 import React from 'react'
+// import styledomponents'
 import styled from '@emotion/styled'
 
 export const TypesColors = [
@@ -85,12 +86,8 @@ export const TypesColors = [
 
 
 function Container( { type } ) {
-  console.log('type: ' , type.type.name)
-
   const { color } = TypesColors.find( element => element.name === type.type.name )
-
-  console.log('color ' , TypesColors[0].name)
-
+  
   const ContainerStyle = styled.div`
   border-radius: 4px;
   background: ${color};

@@ -1,3 +1,4 @@
+// import styledled-components'
 import styled from '@emotion/styled'
 
 export const PokemonContainer = styled.div`

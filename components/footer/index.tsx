@@ -1,4 +1,5 @@
 import React from 'react'
+// import styled from 'styled-components'
 import styled from '@emotion/styled'
 
 const Container = styled.div`
@@ -12,10 +13,10 @@ const P = styled.p`
   padding: 10px;
 `
 
-function Footer() {
+function Footer( { text } ) {
   return (
     <Container>
-      <P>© Pokedex App {new Date().getFullYear()}</P>
+      <P>{ text }{ new Date().getFullYear() }</P>
     </Container>
   )
 }

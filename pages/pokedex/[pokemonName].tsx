@@ -2,8 +2,9 @@ import Head from 'next/head'
 import Stats from '../../components/stats'
 import { fetchPokemon } from '../../scripts/fetchPokemon'
 import fetchPokemonDamageRelations from '../../scripts/fetchPokemonDamageRelations'
-import PokemonTypes from '../../components/pokemonTypes'
+// import PokemonTypes from '../../components/pokemonTypes'
 import DamageRelation from '../../components/damageRelation'
+// import styled from 'styled-components'
 import styled from '@emotion/styled'
 import normalizeId from '../../scripts/normalizeId'
 
@@ -31,7 +32,7 @@ const Pokedex = ( { pokemon, doubleDamageTo, doubleDamageFrom, results } ) => {
 
       <h2>Type</h2>
 
-      <PokemonTypes types={ pokemon.types } />
+      {/* <PokemonTypes types={ pokemon.types } /> */}
       
       <DamageRelation title='Advantage' pokemonType={ pokemon.types } weakness={ doubleDamageTo } />
 

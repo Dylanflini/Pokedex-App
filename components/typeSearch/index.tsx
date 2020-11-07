@@ -1,7 +1,9 @@
 import React from 'react'
+// import styled from 'styled-components'
 import styled from '@emotion/styled'
 import useGetPokemons from '../../hooks/useGetPokemons'
-import Button from '../button'
+import Button from '../boton'
+// import Button from '../button'
 import PokemonsCard from '../pokemonsCard'
 
 const Option = styled.option`
@@ -78,7 +80,6 @@ export default function TypeSearch( { options } ) {
         </Select>
       </Form>
       <Button color='#c01611' onClick={ handleReset } >Resetear</Button>
-      <PokemonsCard pokemons={ pokemons } />
       {isLoading ? <Loading src="/loading.gif" /> : null }
 
       <Button onClick={ handleClick } >{ pokemons.length === 0 ? 'Search' : 'Show More' }</Button>
