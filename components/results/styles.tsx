@@ -1,10 +1,11 @@
-// import styledled-components'
 import styled from '@emotion/styled'
 
 export const PokemonContainer = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
+  --auto-grid-min-size: 9rem;
+  
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--auto-grid-min-size), 1fr));
+  grid-gap: 1rem;
 `
 
 export const Loading = styled.img`
