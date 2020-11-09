@@ -15,7 +15,6 @@ export default function DamageRelation( { title, weakness, pokemonType } ) {
   }
 
   const filtrado = filterSameTypes( weakness, pokemonType )
-  console.log('filtrado', filtrado)
 
   return (
     <>

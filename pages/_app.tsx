@@ -19,7 +19,8 @@ function MyApp( { Component, pageProps } ) {
   const [pokemonSearches, setPokemonSearches] = React.useState( '' )
   const [typeSearches, setTypeSearches] = React.useState( INITIAL_VALUE )
   const [types, setTypes] = React.useState( [] )
-  const [pokemonsFilter, isLoading, setPokemonsFilterToZero] = usePokemons( types, typeSearches, pokemonSearches )
+  const [isResultVisible, setIsResultVisible] = React.useState( true )
+  const [pokemonsFilter, isLoading] = usePokemons( types, typeSearches, pokemonSearches, setPokemonSearches )
 
   React.useEffect( () => {
     async function fetch() {
@@ -30,25 +31,39 @@ function MyApp( { Component, pageProps } ) {
 
   }, [] )
 
+  React.useEffect( () => {
+    setIsResultVisible( true )
+  }, [pokemonSearches, typeSearches] )
+
   return (
     <>
       <Head>
         <link rel="icon" href="/pokemon_icon.svg" />
       </Head>
-      <NavBar pokemonsFound={ pokemonsFilter.length } buscador={ <Search setPokemonSearches={ setPokemonSearches } /> } typeSearch={ <TypeSearch options={ types } type={ typeSearches } setTypeSearches={ setTypeSearches } /> } />
+
+      <NavBar
+        pokemonsFound={ pokemonsFilter.length }
+        /* se podria unir los dos componentes Search y TypeSearch en uno solo */
+        buscador={
+          <Search setPokemonSearches={ setPokemonSearches } />
+        }
+        typeSearch={
+          <TypeSearch options={ types } type={ typeSearches } setTypeSearches={ setTypeSearches } />
+        }
+      />
+
       <Main>
-        <Component { ...pageProps } setPokemonsFilterToZero={ setPokemonsFilterToZero } results={ <Results pokemonsBySearch={ pokemonsFilter } isLoading={ isLoading } /> } />
+        <Component
+          { ...pageProps }
+          setIsResultVisible={ setIsResultVisible }
+          results={
+            <Results pokemons={ pokemonsFilter } isResultVisible={ isResultVisible } isLoading={ isLoading } />
+          }
+        />
       </Main>
       <Footer text='© Pokedex App ' version=' - v1.0' />
     </>
   )
 }
-
-// MyApp.getInitialProps = async () => {
-
-//   return {
-//     types: await fetchPokemonTypes(),
-//   }
-// }
 
 export default MyApp

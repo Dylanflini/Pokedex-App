@@ -4,46 +4,50 @@ import { fetchPokemon } from '../../scripts/fetchPokemon'
 import fetchPokemonDamageRelations from '../../scripts/fetchPokemonDamageRelations'
 import PokemonTypes from '../../components/pokemonTypes'
 import DamageRelation from '../../components/damageRelation'
-// import styled from 'styled-components'
 import styled from '@emotion/styled'
 import normalizeId from '../../scripts/normalizeId'
 import React from 'react'
+import { Container } from '../index'
 
-const Pokedex = ( { pokemon, doubleDamageTo, doubleDamageFrom, results, setPokemonsFilterToZero } ) => {
+const Image = styled.img`
+    width: 25%;
+    height: auto;
+`
+
+const Pokedex = ( { pokemon, doubleDamageTo, doubleDamageFrom, results, setIsResultVisible } ) => {
 
   React.useEffect( () => {
-    setPokemonsFilterToZero()
-  }, [] )
-
-  const Image = styled.img`
-  width: 25%;
-  height: auto;
-`
+    setIsResultVisible( false )
+  }, [pokemon] )
 
   return (
     <>
       <Head>
         <title>{ pokemon.name.toUpperCase() }</title>
       </Head>
+      <Container>
 
-      {results }
+        { results }
 
-      <h1>{ pokemon.name }</h1>
+        <h1>{ pokemon.name }</h1>
 
-      <Image src={ `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${ normalizeId( pokemon.id ) }.png` } alt={ `Is the pokemon called ${ pokemon.name }` } />
+        <Image src={ `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${ normalizeId( pokemon.id ) }.png` } alt={ `Is the pokemon called ${ pokemon.name }` } />
 
-      <Stats stats={ pokemon.stats } />
-      {/* se podria implementar las estadisticas con chart.js */ }
+        <Stats stats={ pokemon.stats } />
+        {/* se podria implementar las estadisticas con chart.js */ }
 
-      <h2>Type</h2>
+        <h2>Type</h2>
 
-      <PokemonTypes types={ pokemon.types } />
+        <PokemonTypes types={ pokemon.types } />
 
-      <DamageRelation title='Advantage' pokemonType={ pokemon.types } weakness={ doubleDamageTo } />
+        <DamageRelation title='Advantage' pokemonType={ pokemon.types } weakness={ doubleDamageTo } />
 
-      <DamageRelation title='Weakness' pokemonType={ pokemon.types } weakness={ doubleDamageFrom } />
+        <DamageRelation title='Weakness' pokemonType={ pokemon.types } weakness={ doubleDamageFrom } />
 
-      {/* component to next and previu pokemon */ }
+        {/* component to next and previu pokemon */ }
+
+      </Container>
+
 
     </>
   )

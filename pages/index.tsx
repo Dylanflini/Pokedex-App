@@ -2,12 +2,17 @@ import Head from 'next/head'
 import styled from '@emotion/styled'
 import React from 'react'
 
-const Container = styled.div`
+export const Container = styled.div`
   max-width: 1200px;
   margin: 0 auto;
 `
 
-export default function Home( { results } ) {
+export default function Home( { results, setIsResultVisible } ) {
+
+  React.useEffect( () => {
+    setIsResultVisible( true )
+  }, [] )
+
   return (
     <div>
       <Head>

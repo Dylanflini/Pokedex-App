@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 // import styled from 'styled-components'
-import Button from '../boton'
+// import Button from '../boton'
 import { Form, Input } from './styles'
 
 type search = {

@@ -1,65 +1,38 @@
 import React from 'react'
+import { useRouter } from 'next/router'
 import { PokemonCard } from '../../scripts/fetchPokemon'
 import Pokemon from '../pokemon'
 import { Loading, PokemonContainer } from './styles'
 
-
-function useFilterPokemons( pokemonsBySearch: PokemonCard[] = [], pokemonsByTypeSearch: PokemonCard[] = [] ) {
-
-  const [pokemons, setPokemons] = React.useState( [] )
-
-  React.useEffect( () => {
-
-    function x() {
-
-      if ( pokemonsBySearch.length === 0 && pokemonsByTypeSearch.length === 0 ) {
-        return []
-      }
-
-      if ( pokemonsBySearch.length === 0 ) {
-        return pokemonsByTypeSearch
-      }
-
-      if ( pokemonsByTypeSearch.length === 0 ) {
-        return pokemonsBySearch
-      }
-
-      return pokemonsBySearch.filter( ( pokemon, index ) => pokemon.name === pokemonsByTypeSearch[index].name )
-    }
-
-    setPokemons( x() )
-
-  }, [pokemonsBySearch] )
-
-
-  return [pokemons]
-}
-
 type result = {
-  pokemonsBySearch: PokemonCard[],
-  pokemonsByTypeSearch?: PokemonCard[],
+  pokemons: PokemonCard[],
   isLoading: boolean,
+  isResultVisible: boolean,
 }
 
-export default function Results( { pokemonsBySearch = [], pokemonsByTypeSearch = [], isLoading }: result ) {
+export default function Results( { pokemons = [], isLoading, isResultVisible = true }: result ) {
 
-  // const [pokemons] = useFilterPokemons( pokemonsBySearch, pokemonsByTypeSearch )
+  const router = useRouter()
 
   return (
     <>
       {isLoading ? <Loading src="/loading.gif" /> : null }
-      <PokemonContainer>
-        {
-          pokemonsBySearch.map( ( pokemon: any ) => (
-            <Pokemon
-              key={ pokemon.id }
-              name={ pokemon.name }
-              id={ pokemon.id }
-              types={ pokemon.types }
-            />
-          ) )
-        }
-      </PokemonContainer>
+      {
+        isResultVisible ?
+          <PokemonContainer>
+            {
+              pokemons.map( ( pokemon: any ) => (
+                <Pokemon
+                  key={ pokemon.id }
+                  name={ pokemon.name }
+                  id={ pokemon.id }
+                  types={ pokemon.types }
+                />
+              ) )
+            }
+          </PokemonContainer>
+          : null
+      }
     </>
   )
 }

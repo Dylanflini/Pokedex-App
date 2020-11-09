@@ -5,7 +5,7 @@ import React from 'react'
 import { PokemonCard } from '../scripts/fetchPokemon'
 import { PokemonsTypes } from '../scripts/fetchPokemonTypes';
 
-export function usePokemons( types: PokemonsTypes[], type: string = '', name: string = '', offset = 0, limit = 20, sort = [] ) {
+export function usePokemons( types: PokemonsTypes[], type: string = '', name: string = '', setPokemonSearches, offset = 0, limit = 20, sort = [] ) {
 
   const [pokemons, setPokemons] = React.useState( [] )
   const [pokemonsFilter, setPokemonsFilter] = React.useState( [] )
@@ -31,11 +31,14 @@ export function usePokemons( types: PokemonsTypes[], type: string = '', name: st
 
   React.useEffect( () => {
 
-    const x = pokemons.filter( ( element ) => element.name.includes( name.toLowerCase() ) )
-    setIsLoading( true )
-    setPokemonsFilter( x )
-    // setPokemonsFilter( x.slice( offset, limit ) )
-    setIsLoading( false )
+    if ( name !== '' ) {
+      const x = pokemons.filter( ( element ) => element.name.includes( name.toLowerCase() ) )
+      setIsLoading( true )
+      setPokemonsFilter( x )
+      // setPokemonsFilter( x.slice( offset, limit ) )
+      setIsLoading( false )
+    }
+    setPokemonSearches( '' )
 
   }, [name] )
 
@@ -57,11 +60,11 @@ export function usePokemons( types: PokemonsTypes[], type: string = '', name: st
 
   }, [pokemons, limit] )
 
-  function setPokemonsFilterToZero() {
-    setPokemonsFilter( [] )
-  }
+  // function setPokemonsFilterToZero() {
+  //   setPokemonsFilter( [] )
+  // }
 
-  return [pokemonsFilter, isLoading, setPokemonsFilterToZero] as const
+  return [pokemonsFilter, isLoading] as const
 }
 
 function filterTypes( types, type ) {
