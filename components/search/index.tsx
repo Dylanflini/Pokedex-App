@@ -1,31 +1,46 @@
 import React, { useState } from 'react'
 // import styled from 'styled-components'
 // import Button from '../boton'
-import { Form, Input } from './styles'
+import { Form, Input, Select, Option } from './styles'
+
+export const INITIAL_VALUE = 'select type'
 
 type search = {
-  setPokemonSearches: ( input ) => void
+  setPokemonSearches: ( input ) => void,
+  setTypeSearches: ( input ) => void,
+  type: string,
+  options: any[]
+
 }
 
 const initialInput = ''
 
-export default function Search( { setPokemonSearches }: search ) {
+export default function Search( { setPokemonSearches, options, type, setTypeSearches }: search ) {
 
   const [input, setInput] = useState( initialInput )
 
-  function handleChange( e: any ) {
+  function handleInputChange( e: any ) {
     setInput( e.target.value )
   }
 
   const handleSubmit = ( e: any ) => {
     e.preventDefault()
 
-    if(input.length > 2){
+    if ( input.length > 2 ) {
       setInput( initialInput )
       setPokemonSearches( input )
     }
-
   }
+
+  function handleSelectOnChange( e: any ) {
+    setTypeSearches( e.target.value )
+  }
+
+  const [isShowMore, setIsShowMore] = React.useState( true )
+
+  // function handleClick() {
+  //   setIsShowMore( !isShowMore )
+  // }
 
   return (
     <Form onSubmit={ handleSubmit } >
@@ -33,10 +48,21 @@ export default function Search( { setPokemonSearches }: search ) {
         placeholder="Type Pokemon name"
         type="text"
         value={ input }
-        onChange={ handleChange }
+        onChange={ handleInputChange }
       >
       </Input>
-      {/* <Button onClick={ handleSubmit } > Search </Button> */}
+
+      {/* <span>Select type of Pokemon </span> */}
+      <Select value={ type } onChange={ handleSelectOnChange }>
+        <Option value={ INITIAL_VALUE }>{ INITIAL_VALUE }</Option>
+        {
+          options.map( ( { name }, i: number ) => {
+            return ( <Option key={ i } value={ name }>{ name }</Option> )
+          } )
+        }
+      </Select>
+
+      {/* <Button onClick={ handleSubmit } > Search </Button> */ }
     </Form>
   )
 }

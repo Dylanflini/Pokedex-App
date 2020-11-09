@@ -5,8 +5,8 @@ import '../styles/globals.css'
 import styled from '@emotion/styled'
 import React from 'react'
 import Results from '../components/results'
-import Search from '../components/search'
-import TypeSearch, { INITIAL_VALUE } from '../components/typeSearch'
+import Search, { INITIAL_VALUE } from '../components/search'
+// import TypeSearch from '../components/typeSearch'
 import fetchPokemonTypes from '../scripts/fetchPokemonTypes'
 import { usePokemons } from '../hooks/usePokemons'
 
@@ -45,11 +45,16 @@ function MyApp( { Component, pageProps } ) {
         pokemonsFound={ pokemonsFilter.length }
         /* se podria unir los dos componentes Search y TypeSearch en uno solo */
         buscador={
-          <Search setPokemonSearches={ setPokemonSearches } />
+          <Search
+            setPokemonSearches={ setPokemonSearches }
+            options={ types }
+            type={ typeSearches }
+            setTypeSearches={ setTypeSearches }
+          />
         }
-        typeSearch={
-          <TypeSearch options={ types } type={ typeSearches } setTypeSearches={ setTypeSearches } />
-        }
+      // typeSearch={
+      //   <TypeSearch options={ types } type={ typeSearches } setTypeSearches={ setTypeSearches } />
+      // }
       />
 
       <Main>

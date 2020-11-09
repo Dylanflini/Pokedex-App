@@ -4,6 +4,15 @@ import { PokemonCard } from '../../scripts/fetchPokemon'
 import Card from '../card'
 import { Image } from '../card/styles'
 import PokemonTypes from '../pokemonTypes'
+import styled from '@emotion/styled'
+
+const Body = styled.div`
+  width: 100%;
+`
+
+const Id = styled.div`
+text-align: right;
+`
 
 function Pokemon( { name, id, types }: PokemonCard ) {
 
@@ -11,13 +20,16 @@ function Pokemon( { name, id, types }: PokemonCard ) {
 
   const LinkWithImage = () => (
     <Link href={ `/pokedex/${ name }` } >
-      <Image src={ imageUrl } alt={ `pokemon ${ name }`} />
+      <Image src={ imageUrl } alt={ `pokemon ${ name }` } />
     </Link>
   )
 
   return (
     <Card title={ name } imageUrl={ imageUrl } linkWithImage={ <LinkWithImage /> } >
-      <PokemonTypes types={ types } />
+      <Body>
+        <PokemonTypes types={ types } />
+        <Id >{ id }</Id>
+      </Body>
     </Card>
   )
 }

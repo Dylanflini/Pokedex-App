@@ -126,11 +126,11 @@ function Container( { type, isDamageRelation } ) {
 
 function PokemonTypes( { types = [], isDamageRelation = false } ) {
   return (
-    <>
+    <div>
       {
         types.map( ( type, index: number ) => ( <Container key={ index } isDamageRelation={ isDamageRelation } type={ type } /> ) )
       }
-    </>
+    </div>
   )
 }
 

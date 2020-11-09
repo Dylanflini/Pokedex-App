@@ -1,5 +1,6 @@
 // import Link from 'next/link'
 import React from 'react'
+// import Image from 'next/image'
 import { CardContainer, Image, Title, Description } from './styles'
 
 interface card {

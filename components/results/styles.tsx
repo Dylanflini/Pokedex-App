@@ -3,7 +3,7 @@ import styled from '@emotion/styled'
 
 export const PokemonContainer = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   flex-wrap: wrap;
 `
 

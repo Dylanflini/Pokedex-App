@@ -2,9 +2,11 @@ import styled from '@emotion/styled'
 // import styled from 'styled-components'
 
 export const CardContainer = styled.div`
-  flex: .5 .8 160px;
-  max-width: 250px;
-  margin: 6px;
+  flex: 0 1 155px;
+  max-width: 300px;
+
+  margin: 6px 0;
+  /* margin-;e: 2px; */
   padding: 10px;
   background-color: #dfdbdb;
   font-size: 16px;
