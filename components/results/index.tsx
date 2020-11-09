@@ -43,14 +43,14 @@ type result = {
 
 export default function Results( { pokemonsBySearch = [], pokemonsByTypeSearch = [], isLoading }: result ) {
 
-  const [pokemons] = useFilterPokemons( pokemonsBySearch, pokemonsByTypeSearch )
-  
+  // const [pokemons] = useFilterPokemons( pokemonsBySearch, pokemonsByTypeSearch )
+
   return (
     <>
       {isLoading ? <Loading src="/loading.gif" /> : null }
       <PokemonContainer>
         {
-          pokemons.map( ( pokemon: any ) => (
+          pokemonsBySearch.map( ( pokemon: any ) => (
             <Pokemon
               key={ pokemon.id }
               name={ pokemon.name }

@@ -28,13 +28,13 @@ function PokemonPropsAreEqual( prevPokemon, nextPokemon ) {
   return prevPokemon.id === nextPokemon.id
 }
 
-function normalizeId( id: number ) {
+function normalizeId( id: number ): number {
 
-  if ( id < 100 ) {
+  if ( id < 100 && id < 10000 ) {
     const x: string = id.toString()
     return addZeroLeft( x )
   } else {
-    return id.toString()
+    return id
   }
 
   function addZeroLeft( string: string ) {

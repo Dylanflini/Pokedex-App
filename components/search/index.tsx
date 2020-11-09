@@ -1,28 +1,17 @@
 import React, { useState } from 'react'
 // import styled from 'styled-components'
-import styled from '@emotion/styled'
 import Button from '../boton'
-
-const Form = styled.form`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-`
-
-const Input = styled.input`
-  padding: 4px;
-  width: 300px;
-  height: 20px;
-  margin: 0 1rem;
-`
+import { Form, Input } from './styles'
 
 type search = {
   setPokemonSearches: ( input ) => void
 }
 
+const initialInput = ''
+
 export default function Search( { setPokemonSearches }: search ) {
 
-  const [input, setInput] = useState( '' )
+  const [input, setInput] = useState( initialInput )
 
   function handleChange( e: any ) {
     setInput( e.target.value )
@@ -30,7 +19,12 @@ export default function Search( { setPokemonSearches }: search ) {
 
   const handleSubmit = ( e: any ) => {
     e.preventDefault()
-    setPokemonSearches( input )
+
+    if(input.length > 2){
+      setInput( initialInput )
+      setPokemonSearches( input )
+    }
+
   }
 
   return (
@@ -42,7 +36,7 @@ export default function Search( { setPokemonSearches }: search ) {
         onChange={ handleChange }
       >
       </Input>
-      <Button onClick={ handleSubmit } > Search </Button>
+      {/* <Button onClick={ handleSubmit } > Search </Button> */}
     </Form>
   )
 }

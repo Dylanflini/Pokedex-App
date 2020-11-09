@@ -6,7 +6,7 @@ export const CardContainer = styled.div`
   max-width: 250px;
   margin: 6px;
   padding: 10px;
-  background-color: #c0c0c0;
+  background-color: #dfdbdb;
   font-size: 16px;
   border-radius: 4px;
   color: black;

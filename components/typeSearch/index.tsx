@@ -1,18 +1,16 @@
 import React from 'react'
 // import styled from 'styled-components'
 import styled from '@emotion/styled'
-import useGetPokemons from '../../hooks/useGetPokemons'
-import Button from '../boton'
-// import Button from '../button'
-import PokemonsCard from '../pokemonsCard'
 
 const Option = styled.option`
   /* background-color: blue;
   font-size: 20px; */
 `
+
 const Select = styled.select`
   width: 80px;
   padding: 2px 4px;
+  margin-left: 8px;
   background-color: lightblue;
   border-radius: 2px;
   border: 0px;
@@ -21,27 +19,20 @@ const Select = styled.select`
 `
 
 const Form = styled.form`
-  margin: 12px;
+  text-align: center;
+  display: inline;
+  min-width: min-content;
+  display: flex;
 `
 
-const Loading = styled.img`
-  width: 40px;
-  height: 40px;
-  margin: 5px auto;
-  display: block;
-`
+export const INITIAL_VALUE = 'all'
 
-export default function TypeSearch( { options } ) {
+export default function TypeSearch( { options, type, setTypeSearches } ) {
 
-  const INITIAL_VALUE = 'all'
-  const [type, setType] = React.useState( INITIAL_VALUE )
   const [isShowMore, setIsShowMore] = React.useState( true )
 
-  const [pokemons, handleReset, isLoading] = useGetPokemons( INITIAL_VALUE, type, isShowMore )
-
   function handleOnChange( e: any ) {
-    handleReset()
-    setType( e.target.value )
+    setTypeSearches( e.target.value )
   }
   function handleClick() {
     setIsShowMore( !isShowMore )
@@ -52,38 +43,31 @@ export default function TypeSearch( { options } ) {
   //   threshold: 1,
   // }
 
-  
+
   // const callback = function ( entries, observer ) {
   //   entries.forEach( entry => {
   //     console.log('entrando por observer')
   //   } )
   // }
-  
+
   // const observer = new IntersectionObserver( callback, option );
 
   // var target = document.querySelector('');
   // observer.observe(target);
-  
+
 
 
   return (
-    <>
-      <Form>
-        <span>Select type of Pokemon </span>
-        <Select value={ type } onChange={ handleOnChange }>
-          <Option value={ INITIAL_VALUE }>{ INITIAL_VALUE }</Option>
-          {
-            options.map( ( { name }, i: number ) => {
-              return ( <Option key={ i } value={ name }>{ name }</Option> )
-            } )
-          }
-        </Select>
-      </Form>
-      <Button color='#c01611' onClick={ handleReset } >Resetear</Button>
-      {isLoading ? <Loading src="/loading.gif" /> : null }
-
-      <Button onClick={ handleClick } >{ pokemons.length === 0 ? 'Search' : 'Show More' }</Button>
-
-    </>
+    <Form>
+      <span>Select type of Pokemon </span>
+      <Select value={ type } onChange={ handleOnChange }>
+        <Option value={ INITIAL_VALUE }>{ INITIAL_VALUE }</Option>
+        {
+          options.map( ( { name }, i: number ) => {
+            return ( <Option key={ i } value={ name }>{ name }</Option> )
+          } )
+        }
+      </Select>
+    </Form>
   )
 }

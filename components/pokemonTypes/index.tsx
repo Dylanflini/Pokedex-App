@@ -85,12 +85,21 @@ export const TypesColors = [
   }]
 
 
-function Container( { type } ) {
-  const { color } = TypesColors.find( element => element.name === type.type.name )
-  
+function Container( { type, isDamageRelation } ) {
+
+  function x() {
+    if ( isDamageRelation ) {
+      const { color } = TypesColors.find( element => element.name === type.name )
+      return color
+    } else {
+      const { color } = TypesColors.find( element => element.name === type.type.name )
+      return color
+    }
+  }
+
   const ContainerStyle = styled.div`
   border-radius: 4px;
-  background: ${color};
+  background: ${ x() };
   /* color: white; */
   display: inline-block;
   width: min-content;
@@ -103,17 +112,23 @@ function Container( { type } ) {
 
   return (
     <ContainerStyle>
-      { type.type.name }
+
+      {
+        isDamageRelation ?
+          type.name
+          :
+          type.type.name
+      }
     </ContainerStyle>
   )
 }
 
 
-function PokemonTypes( { types = [] } ) {
+function PokemonTypes( { types = [], isDamageRelation = false } ) {
   return (
     <>
       {
-        types.map( ( type, index: number ) => ( <Container key={ index } type={ type } /> ) )
+        types.map( ( type, index: number ) => ( <Container key={ index } isDamageRelation={ isDamageRelation } type={ type } /> ) )
       }
     </>
   )

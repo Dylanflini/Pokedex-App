@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export type PokemonTypes = {
-  type: string,
+  type: { name: string, url?: string },
 }
 
 export default interface PokemonName {
@@ -24,6 +24,8 @@ async function fetchPokemon( pokemonName: string ) {
 
   try {
 
+    console.log('pokemonName',  pokemonName )
+
     const { data } = await axios.get( `https://pokeapi.co/api/v2/pokemon/${ pokemonName }` )
 
     const pokemon: Pokemon = {
@@ -39,6 +41,8 @@ async function fetchPokemon( pokemonName: string ) {
     if ( pokemon.name === undefined || pokemon.id >= 10000 ) {
       return null
     }
+
+    console.log( 'pokemon', pokemon )
 
     return pokemon
 
