@@ -39,7 +39,7 @@ function MyApp( { Component, pageProps } ) {
       <Main>
         <Component { ...pageProps } setPokemonsFilterToZero={ setPokemonsFilterToZero } results={ <Results pokemonsBySearch={ pokemonsFilter } isLoading={ isLoading } /> } />
       </Main>
-      <Footer text='© Pokedex App ' />
+      <Footer text='© Pokedex App ' version=' - v1.0' />
     </>
   )
 }

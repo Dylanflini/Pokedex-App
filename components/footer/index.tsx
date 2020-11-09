@@ -14,10 +14,10 @@ const P = styled.p`
   padding: 10px;
 `
 
-function Footer( { text } ) {
+function Footer( { text, version } ) {
   return (
     <Container>
-      <P>{ text }{ new Date().getFullYear() }</P>
+      <P>{ text }{ new Date().getFullYear() } { version } </P>
     </Container>
   )
 }

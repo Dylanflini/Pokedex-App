@@ -10,7 +10,7 @@ export const PokemonContainer = styled.div`
 export const Loading = styled.img`
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: calc(50% - 40px);
   width: 80px;
   height: auto;
   margin: 5px auto;

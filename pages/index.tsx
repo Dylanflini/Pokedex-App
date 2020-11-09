@@ -11,7 +11,7 @@ export default function Home( { results } ) {
   return (
     <div>
       <Head>
-        <title>Pokedex Interface 🐤 </title>
+        <title>Pokedex App 🐤 </title>
       </Head>
 
       <Container>

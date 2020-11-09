@@ -16,7 +16,7 @@ function Card( { title, imageUrl, children, linkWithImage }: card ) {
       {
         linkWithImage
           ? linkWithImage
-          : <Image src={ imageUrl } />
+          : <Image src={ imageUrl } alt={ `pokemon ${ title }` } />
       }
       <Title>{ title }</Title>
       <Description>{ children }</Description>

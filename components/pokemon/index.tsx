@@ -11,7 +11,7 @@ function Pokemon( { name, id, types }: PokemonCard ) {
 
   const LinkWithImage = () => (
     <Link href={ `/pokedex/${ name }` } >
-      <Image src={ imageUrl } />
+      <Image src={ imageUrl } alt={ `pokemon ${ name }`} />
     </Link>
   )
 
