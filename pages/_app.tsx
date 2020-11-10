@@ -6,7 +6,6 @@ import styled from '@emotion/styled'
 import React from 'react'
 import Results from '../components/results'
 import Search, { INITIAL_VALUE } from '../components/search'
-// import TypeSearch from '../components/typeSearch'
 import fetchPokemonTypes from '../scripts/fetchPokemonTypes'
 import { usePokemons } from '../hooks/usePokemons'
 
@@ -20,7 +19,9 @@ function MyApp( { Component, pageProps } ) {
   const [typeSearches, setTypeSearches] = React.useState( INITIAL_VALUE )
   const [types, setTypes] = React.useState( [] )
   const [isResultVisible, setIsResultVisible] = React.useState( true )
-  const [pokemonsFilter, isLoading] = usePokemons( types, typeSearches, pokemonSearches, setPokemonSearches )
+  const [limit, setLimit] = React.useState( 20 )
+
+  const [pokemonsFilter, isLoading] = usePokemons( types, typeSearches, pokemonSearches, setPokemonSearches, limit )
 
   React.useEffect( () => {
     async function fetch() {
@@ -43,7 +44,7 @@ function MyApp( { Component, pageProps } ) {
 
       <NavBar
         pokemonsFound={ pokemonsFilter.length }
-        /* se podria unir los dos componentes Search y TypeSearch en uno solo */
+
         buscador={
           <Search
             setPokemonSearches={ setPokemonSearches }
@@ -52,9 +53,7 @@ function MyApp( { Component, pageProps } ) {
             setTypeSearches={ setTypeSearches }
           />
         }
-      // typeSearch={
-      //   <TypeSearch options={ types } type={ typeSearches } setTypeSearches={ setTypeSearches } />
-      // }
+
       />
 
       <Main>
@@ -62,7 +61,7 @@ function MyApp( { Component, pageProps } ) {
           { ...pageProps }
           setIsResultVisible={ setIsResultVisible }
           results={
-            <Results pokemons={ pokemonsFilter } isResultVisible={ isResultVisible } isLoading={ isLoading } />
+            <Results pokemons={ pokemonsFilter } isResultVisible={ isResultVisible } isLoading={ isLoading } setLimit={ setLimit } limit={ limit } />
           }
         />
       </Main>

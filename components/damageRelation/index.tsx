@@ -1,7 +1,7 @@
 import React from 'react'
 import PokemonTypes from '../pokemonTypes'
 
-export default function DamageRelation( { title, weakness, pokemonType } ) {
+export default function DamageRelation( { title, weakness, pokemonType, fontSize } ) {
 
   function filterSameTypes( weakness, pokemonType, index = 0 ) {
 
@@ -9,6 +9,9 @@ export default function DamageRelation( { title, weakness, pokemonType } ) {
       return weakness
     } else {
       const found = weakness.filter( ( item ) => item.name !== pokemonType[index].type.name )
+
+      
+
       return filterSameTypes( found, pokemonType, index + 1 )
     }
 
@@ -19,7 +22,7 @@ export default function DamageRelation( { title, weakness, pokemonType } ) {
   return (
     <>
       <h2>{ title }</h2>
-      <PokemonTypes types={ filtrado } isDamageRelation={true} />
+      <PokemonTypes fontSize={ fontSize } types={ filtrado } isDamageRelation={ true } />
     </>
   )
 }

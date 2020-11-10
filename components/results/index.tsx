@@ -1,18 +1,25 @@
 import React from 'react'
-import { useRouter } from 'next/router'
+// import { useRouter } from 'next/router'
 import { PokemonCard } from '../../scripts/fetchPokemon'
 import Pokemon from '../pokemon'
 import { Loading, PokemonContainer } from './styles'
+import { useObserver } from '../../hooks/useObserver'
 
 type result = {
   pokemons: PokemonCard[],
   isLoading: boolean,
   isResultVisible: boolean,
+  setLimit: ( any ) => void,
+  limit: number,
 }
 
-export default function Results( { pokemons = [], isLoading, isResultVisible = true }: result ) {
+export default function Results( { pokemons = [], isLoading, isResultVisible = true, setLimit, limit }: result ) {
 
-  const router = useRouter()
+  // const router = useRouter()
+
+  const callBack = () => setLimit( limit + 20 )
+
+  const [lastPokemon] = useObserver( callBack, isLoading, limit <= pokemons.length, [limit] )
 
   return (
     <>
@@ -21,14 +28,26 @@ export default function Results( { pokemons = [], isLoading, isResultVisible = t
         isResultVisible ?
           <PokemonContainer>
             {
-              pokemons.map( ( pokemon: any ) => (
-                <Pokemon
-                  key={ pokemon.id }
-                  name={ pokemon.name }
-                  id={ pokemon.id }
-                  types={ pokemon.types }
-                />
-              ) )
+              pokemons.map( ( pokemon: any, index: number ) => {
+                if ( pokemons.length === index + 1 ) {
+                  return <Pokemon
+                    ref={ lastPokemon }
+                    key={ pokemon.id }
+                    name={ pokemon.name }
+                    id={ pokemon.id }
+                    types={ pokemon.types }
+                  />
+                } else {
+                  return <Pokemon
+                    key={ pokemon.id }
+                    name={ pokemon.name }
+                    id={ pokemon.id }
+                    types={ pokemon.types }
+                  />
+                }
+              }
+
+              )
             }
           </PokemonContainer>
           : null

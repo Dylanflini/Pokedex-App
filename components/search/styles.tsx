@@ -6,8 +6,10 @@ export const Form = styled.form`
 `
 
 export const Input = styled.input`
-  flex: 1 1 250px;
-
+  /* flex: 1 1 250px; */
+  /* width: 100%; */
+  min-width: 140px;
+  max-width: 350px;
   padding: 4px;
   height: 20px;
   margin: 0 1rem;

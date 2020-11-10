@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { Form, Input, Select, Option } from './styles'
 
 export const INITIAL_VALUE = 'select type'
+export const ALL_TYPE = 'all'
 
 type search = {
   setPokemonSearches: ( input ) => void,
@@ -26,10 +27,10 @@ export default function Search( { setPokemonSearches, options, type, setTypeSear
   const handleSubmit = ( e: any ) => {
     e.preventDefault()
 
-    if ( input.length > 2 ) {
-      setInput( initialInput )
-      setPokemonSearches( input )
-    }
+    // if ( input.length > 2 ) {
+    // setInput( initialInput )
+    setPokemonSearches( input )
+    // }
   }
 
   function handleSelectOnChange( e: any ) {
@@ -52,9 +53,10 @@ export default function Search( { setPokemonSearches, options, type, setTypeSear
       >
       </Input>
 
-      {/* <span>Select type of Pokemon </span> */}
+      {/* <span>Select type of Pokemon </span> */ }
       <Select value={ type } onChange={ handleSelectOnChange }>
         <Option value={ INITIAL_VALUE }>{ INITIAL_VALUE }</Option>
+        <Option value={ ALL_TYPE }>{ ALL_TYPE }</Option>
         {
           options.map( ( { name }, i: number ) => {
             return ( <Option key={ i } value={ name }>{ name }</Option> )

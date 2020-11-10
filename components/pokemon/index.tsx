@@ -11,10 +11,11 @@ const Body = styled.div`
 `
 
 const Id = styled.div`
+margin-top: 4px;
 text-align: right;
 `
 
-function Pokemon( { name, id, types }: PokemonCard ) {
+const Pokemon = React.forwardRef( ( { name, id, types }: PokemonCard, ref ) => {
 
   const imageUrl = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${ normalizeId( id ) }.png`
 
@@ -25,14 +26,30 @@ function Pokemon( { name, id, types }: PokemonCard ) {
   )
 
   return (
-    <Card title={ name } imageUrl={ imageUrl } linkWithImage={ <LinkWithImage /> } >
-      <Body>
-        <PokemonTypes types={ types } />
-        <Id >{ id }</Id>
-      </Body>
-    </Card>
+    <>
+      {
+        ref ?
+          <Card title={ name } imageUrl={ imageUrl } linkWithImage={ <LinkWithImage /> } >
+            <Body>
+              <div ref={ ref } >
+                <PokemonTypes types={ types } />
+                <Id >{ id }</Id>
+              </div>
+            </Body>
+          </Card >
+          :
+          <Card title={ name } imageUrl={ imageUrl } linkWithImage={ <LinkWithImage /> } >
+            <Body>
+                <PokemonTypes types={ types } />
+                <Id >{ id }</Id>
+            </Body>
+          </Card >
+      }
+
+    </>
+
   )
-}
+} )
 
 export default React.memo( Pokemon, PokemonPropsAreEqual )
 
