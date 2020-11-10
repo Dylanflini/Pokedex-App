@@ -15,7 +15,9 @@ margin-top: 4px;
 text-align: right;
 `
 
-const Pokemon = React.forwardRef( ( { name, id, types }: PokemonCard, ref ) => {
+type DivProps = PokemonCard;
+
+const Pokemon = React.forwardRef<HTMLDivElement, DivProps>( ( { name, id, types }, ref ) => {
 
   const imageUrl = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${ normalizeId( id ) }.png`
 
@@ -40,8 +42,8 @@ const Pokemon = React.forwardRef( ( { name, id, types }: PokemonCard, ref ) => {
           :
           <Card title={ name } imageUrl={ imageUrl } linkWithImage={ <LinkWithImage /> } >
             <Body>
-                <PokemonTypes types={ types } />
-                <Id >{ id }</Id>
+              <PokemonTypes types={ types } />
+              <Id >{ id }</Id>
             </Body>
           </Card >
       }

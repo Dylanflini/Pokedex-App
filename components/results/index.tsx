@@ -19,6 +19,8 @@ export default function Results( { pokemons = [], isLoading, isResultVisible = t
 
   const callBack = () => setLimit( limit + 20 )
 
+  console.log('render results')
+
   const [lastPokemon] = useObserver( callBack, isLoading, limit <= pokemons.length, [limit] )
 
   return (
