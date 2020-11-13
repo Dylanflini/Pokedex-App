@@ -24,7 +24,7 @@ export default function Chart( {
   return (
     <div className={ chart }>
       {
-        axisY ? <AxisY data={ axisY } maxValue={ maxValue } /> : null
+        isNoValidNumber( axisY ) ? <span ></span> : <AxisY data={ axisY } maxValue={ maxValue } />
       }
       <div className={ chart_bar }>
         {
@@ -44,4 +44,24 @@ export default function Chart( {
     </div>
   )
 
+}
+
+function isNoValidNumber( value: number ) {
+
+  switch ( Math.sign( value ) ) {
+    case 1:
+      return false
+    case -1:
+      return true
+    case 0:
+      return true
+    case -0:
+      return true
+    default:
+      return true
+  }
+
+
+
+  return
 }
