@@ -1,15 +1,15 @@
 /* this components it's for have all pokemon's name and types. Also filter by typeSearch and search component  */
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { ALL_TYPE } from '../components/search';
 import { PokemonsTypes } from '../scripts/fetchPokemonTypes';
 import { fetchByTypes, mergeTypes } from '../scripts/utils';
 
 export function usePokemons(
-  types: PokemonsTypes[],
+  types: PokemonsTypes[] = [],
   type: string = '',
   name: string = '',
-  setPokemonSearches,
+  setTypeSearches,
   limit = 20,
   offset = 0,
   sort = [] ) {
@@ -37,19 +37,19 @@ export function usePokemons(
 
   React.useEffect( () => {
 
+    setPokemonsFilter( allFilter( pokemonsFilter, pokemons, name, type, offset, limit ) )
+
+  }, [pokemons] )
+
+  React.useEffect( () => {
+
     setIsLoading( true )
     setPokemonsFilter( allFilter( pokemonsFilter, pokemons, name, type, offset, limit ) )
     setIsLoading( false )
 
   }, [name, type, limit] )
 
-  // React.useEffect( () => {
-
-  //   setPokemonsFilter( pokemons.slice( offset, limit ) )
-
-  // }, [pokemons, limit] )
-
-  return [pokemonsFilter, isLoading] as const
+  return [pokemonsFilter, isLoading, setIsLoading] as const
 }
 
 function allFilter( pokemonsFilter, pokemons, name, type, offset, limit ) {
@@ -77,7 +77,7 @@ function allFilter( pokemonsFilter, pokemons, name, type, offset, limit ) {
       const v = x.filter( element => filterTypes( element.types, type ) )
       return v
     }
-    
+
     return x.slice( offset, limit )
 
   }
@@ -85,8 +85,6 @@ function allFilter( pokemonsFilter, pokemons, name, type, offset, limit ) {
   return pokemonsFilter
 
 }
-
-
 
 function filterTypes( types, type ) {
 

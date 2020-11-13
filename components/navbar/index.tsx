@@ -50,11 +50,11 @@ const Brand = styled.img`
 
 type navbar = {
   buscador: React.ReactNode,
-  // typeSearch: React.ReactNode,
   pokemonsFound: number,
+  isResultVisible: boolean,
 }
 
-function NavBar( { buscador, pokemonsFound }: navbar ) {
+function NavBar( { buscador, pokemonsFound, isResultVisible }: navbar ) {
   return (
     <Nav>
       <NavItem>
@@ -65,10 +65,11 @@ function NavBar( { buscador, pokemonsFound }: navbar ) {
         </Link>
 
         { buscador }
-        {/* { typeSearch } */}
       </NavItem>
+      {
+        isResultVisible ? <P>Pokemons found: { pokemonsFound }</P> : null
+      }
 
-      <P>Pokemons found: { pokemonsFound }</P>
     </Nav>
   )
 }

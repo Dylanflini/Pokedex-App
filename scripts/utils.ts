@@ -75,3 +75,68 @@ export function replaceURL( URL: string, substr: string[], index: number = 0 ): 
   const newURL = URL.replace( substr[index], '' )
   return replaceURL( newURL, substr, index + 1 )
 }
+
+export function formatData( pokemonStats: any[] ) {
+
+  const axisX = pokemonStats.map( ( element ) =>
+    ( element.stat.name.replace( '-', ' ' ) ) )
+
+  const data = pokemonStats.map( ( element ) =>
+    ( element.base_stat ) )
+
+  return [data, axisX]
+}
+
+export function formatWeight( value: string ) {
+  let str = value.toString()
+  if ( str.length === 1 ) {
+    str = '0'.concat( value.toString() )
+  } else {
+    str = value.toString()
+  }
+  return [str.slice( 0, str.length - 1 ), ',', str.slice( str.length - 1 ), ' kg'].join( '' )
+
+}
+
+export function formatHeight( value: string ) {
+  let str = value.toString()
+  if ( str.length === 1 ) {
+    str = '0'.concat( value.toString() )
+  } else {
+    str = value.toString()
+  }
+  return [str.slice( 0, str.length - 1 ), ',', str.slice( str.length - 1 ), ' m'].join( '' )
+}
+
+export function getDamageRelation( pokemonType, doubleDamageTo, doubleDamageFrom ) {
+
+  function filterSameTypes( relation, pokemonType, index = 0 ) {
+
+    if ( index >= pokemonType.length || pokemonType.length === 1 ) {
+      return relation
+    } else {
+      const found = relation.filter( ( item ) => item.name !== pokemonType[index].type.name )
+
+      return filterSameTypes( found, pokemonType, index + 1 )
+    }
+
+  }
+
+  const advantage = filterSameTypes( doubleDamageTo, pokemonType )
+  const weakness = filterSameTypes( doubleDamageFrom, pokemonType )
+
+  const newAdvantage = advantage.filter( element => filterRelation( element.name, weakness ) )
+  const newWeakness = weakness.filter( element => filterRelation( element.name, advantage ) )
+
+  return [newAdvantage, newWeakness]
+}
+
+export function filterRelation( estatico, arr ) {
+  for ( let { name } of arr ) {
+    if ( name !== estatico ) {
+      return true
+    } else {
+      return false
+    }
+  }
+}

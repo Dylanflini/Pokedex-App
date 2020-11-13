@@ -1,5 +1,6 @@
 import React from 'react'
-// import { useRouter } from 'next/router'
+import ReactDOM from 'react-dom'
+import { useRouter } from 'next/router'
 import { PokemonCard } from '../../scripts/fetchPokemon'
 import Pokemon from '../pokemon'
 import { Loading, PokemonContainer } from './styles'
@@ -11,21 +12,30 @@ type result = {
   isResultVisible: boolean,
   setLimit: ( any ) => void,
   limit: number,
+  setIsLoading: ( boolean ) => void,
 }
 
-export default function Results( { pokemons = [], isLoading, isResultVisible = true, setLimit, limit }: result ) {
+export default function Results( {
+  pokemons = [],
+  isLoading,
+  isResultVisible = true,
+  setLimit,
+  limit,
+  setIsLoading,
+}: result ) {
 
-  // const router = useRouter()
+  const router = useRouter()
+
+  console.log( 'route', router )
 
   const callBack = () => setLimit( limit + 20 )
-
-  console.log('render results')
 
   const [lastPokemon] = useObserver( callBack, isLoading, limit <= pokemons.length, [limit] )
 
   return (
     <>
-      {isLoading ? <Loading src="/loading.gif" /> : null }
+      {isLoading ? ReactDOM.createPortal( <Loading src="/loading.gif" />, document.body ) : null }
+      { pokemons.length === 0 && router.pathname === '/' ? <p>No pokemons Found</p> : null }
       {
         isResultVisible ?
           <PokemonContainer>
@@ -38,6 +48,7 @@ export default function Results( { pokemons = [], isLoading, isResultVisible = t
                     name={ pokemon.name }
                     id={ pokemon.id }
                     types={ pokemon.types }
+                    setIsLoading={ setIsLoading }
                   />
                 } else {
                   return <Pokemon
@@ -45,6 +56,7 @@ export default function Results( { pokemons = [], isLoading, isResultVisible = t
                     name={ pokemon.name }
                     id={ pokemon.id }
                     types={ pokemon.types }
+                    setIsLoading={ setIsLoading }
                   />
                 }
               }

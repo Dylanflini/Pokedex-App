@@ -5,7 +5,10 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   background-color: rgb(224,0,48);
-  margin-top: 50px;
+  /* margin-top: 50px; */
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 `
 const P = styled.p`
   color: white;
@@ -13,7 +16,7 @@ const P = styled.p`
   padding: 10px;
 `
 
-function Footer( { text, version } ) {
+function Footer( { text, version, isRelative = false } ) {
   return (
     <Container>
       <P>{ text }{ new Date().getFullYear() } { version } </P>

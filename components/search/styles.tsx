@@ -15,9 +15,9 @@ export const Input = styled.input`
   margin: 0 1rem;
 `
 
-export const Option = styled.option`
+// export const Option = styled.option`
   /* font-size: 20px; */
-`
+// `
 
 export const Select = styled.select`
   flex: 1 1 200px;

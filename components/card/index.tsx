@@ -6,18 +6,19 @@ import { CardContainer, Image, Title, Description } from './styles'
 interface card {
   title: string,
   imageUrl: string,
+  alt: string,
   children: React.ReactNode,
   linkWithImage?: React.ReactNode,
 }
 
-function Card( { title, imageUrl, children, linkWithImage }: card ) {
+function Card( { title, imageUrl, alt, children, linkWithImage }: card ) {
 
   return (
     <CardContainer>
       {
         linkWithImage
           ? linkWithImage
-          : <Image src={ imageUrl } alt={ `pokemon ${ title }` } />
+          : <Image src={ imageUrl } alt={ alt } />
       }
       <Title>{ title }</Title>
       <Description>{ children }</Description>

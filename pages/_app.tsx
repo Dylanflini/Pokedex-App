@@ -5,23 +5,25 @@ import '../styles/globals.css'
 import styled from '@emotion/styled'
 import React from 'react'
 import Results from '../components/results'
-import Search, { INITIAL_VALUE } from '../components/search'
+import Search, { ALL_TYPE, INITIAL_VALUE } from '../components/search'
 import fetchPokemonTypes from '../scripts/fetchPokemonTypes'
 import { usePokemons } from '../hooks/usePokemons'
 
 const Main = styled.main`
-  padding-top: 100px;
+  padding-top: 60px;
+
 `
 
 function MyApp( { Component, pageProps } ) {
 
+
   const [pokemonSearches, setPokemonSearches] = React.useState( '' )
-  const [typeSearches, setTypeSearches] = React.useState( INITIAL_VALUE )
+  const [typeSearches, setTypeSearches] = React.useState( ALL_TYPE )
   const [types, setTypes] = React.useState( [] )
   const [isResultVisible, setIsResultVisible] = React.useState( true )
   const [limit, setLimit] = React.useState( 20 )
 
-  const [pokemonsFilter, isLoading] = usePokemons( types, typeSearches, pokemonSearches, setPokemonSearches, limit )
+  const [pokemonsFilter, isLoading, setIsLoading] = usePokemons( types, typeSearches, pokemonSearches, setTypeSearches, limit )
 
   React.useEffect( () => {
     async function fetch() {
@@ -38,13 +40,9 @@ function MyApp( { Component, pageProps } ) {
 
   return (
     <>
-      <Head>
-        <link rel="icon" href="/pokemon_icon.svg" />
-      </Head>
-
       <NavBar
         pokemonsFound={ pokemonsFilter.length }
-
+        isResultVisible={ isResultVisible }
         buscador={
           <Search
             setPokemonSearches={ setPokemonSearches }
@@ -60,12 +58,22 @@ function MyApp( { Component, pageProps } ) {
         <Component
           { ...pageProps }
           setIsResultVisible={ setIsResultVisible }
+          setIsLoading={ setIsLoading }
+          setTypeSearches={ setTypeSearches }
+          typeSearches={ typeSearches }
           results={
-            <Results pokemons={ pokemonsFilter } isResultVisible={ isResultVisible } isLoading={ isLoading } setLimit={ setLimit } limit={ limit } />
+            <Results
+              pokemons={ pokemonsFilter }
+              isResultVisible={ isResultVisible }
+              isLoading={ isLoading }
+              setLimit={ setLimit }
+              limit={ limit }
+              setIsLoading={ setIsLoading }
+            />
           }
         />
       </Main>
-      <Footer text='© Pokedex App ' version=' - v1.0' />
+      {/* <Footer text='© Pokedex App ' version=' - v1.0' /> */ }
     </>
   )
 }

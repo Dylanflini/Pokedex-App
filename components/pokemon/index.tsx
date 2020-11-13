@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import React from 'react'
 import { PokemonCard } from '../../scripts/fetchPokemon'
 import Card from '../card'
@@ -15,23 +16,42 @@ margin-top: 4px;
 text-align: right;
 `
 
-type DivProps = PokemonCard;
+type DivProps = {
+  name: string,
+  id: number,
+  types: [any],
+  setIsLoading: ( boolean ) => void,
+};
 
-const Pokemon = React.forwardRef<HTMLDivElement, DivProps>( ( { name, id, types }, ref ) => {
+type Loading = {
+}
+
+const Pokemon = React.forwardRef<HTMLDivElement, DivProps>( ( { name, id, types, setIsLoading }, ref ) => {
 
   const imageUrl = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${ normalizeId( id ) }.png`
 
+  const router = useRouter()
+
+  function toPokedex() {
+    setIsLoading( true )
+    router.push( {
+      pathname: `/pokedex/${ name }`,
+      query: {
+        id: id,
+        types: JSON.stringify( types ),
+      }
+    } )
+  }
+
   const LinkWithImage = () => (
-    <Link href={ `/pokedex/${ name }` } >
-      <Image src={ imageUrl } alt={ `pokemon ${ name }` } />
-    </Link>
+    <Image onClick={ toPokedex } src={ imageUrl } alt={ `pokemon ${ name }` } />
   )
 
   return (
     <>
       {
         ref ?
-          <Card title={ name } imageUrl={ imageUrl } linkWithImage={ <LinkWithImage /> } >
+          <Card title={ name } imageUrl={ imageUrl } alt={ `pokemon ${ name }` } linkWithImage={ <LinkWithImage /> } >
             <Body>
               <div ref={ ref } >
                 <PokemonTypes types={ types } />
@@ -40,16 +60,14 @@ const Pokemon = React.forwardRef<HTMLDivElement, DivProps>( ( { name, id, types 
             </Body>
           </Card >
           :
-          <Card title={ name } imageUrl={ imageUrl } linkWithImage={ <LinkWithImage /> } >
+          <Card title={ name } imageUrl={ imageUrl } alt={ `pokemon ${ name }` } linkWithImage={ <LinkWithImage /> } >
             <Body>
               <PokemonTypes types={ types } />
               <Id >{ id }</Id>
             </Body>
           </Card >
       }
-
     </>
-
   )
 } )
 

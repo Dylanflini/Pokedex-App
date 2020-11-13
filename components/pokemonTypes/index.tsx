@@ -99,7 +99,7 @@ function Container( { type, isDamageRelation, fontSize } ) {
 
   const ContainerStyle = styled.div`
   background: ${ x() };
-  /* color: white; */
+  color: white;
   display: inline-block;
   width: min-content;
   font-size: ${ fontSize };

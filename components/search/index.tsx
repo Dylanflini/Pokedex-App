@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 // import styled from 'styled-components'
 // import Button from '../boton'
-import { Form, Input, Select, Option } from './styles'
+import { Form, Input, Select } from './styles'
 
 export const INITIAL_VALUE = 'select type'
 export const ALL_TYPE = 'all'
@@ -16,7 +16,7 @@ type search = {
 
 const initialInput = ''
 
-export default function Search( { setPokemonSearches, options, type, setTypeSearches }: search ) {
+export default function Search( { setPokemonSearches, options=[], type, setTypeSearches }: search ) {
 
   const [input, setInput] = useState( initialInput )
 
@@ -37,7 +37,7 @@ export default function Search( { setPokemonSearches, options, type, setTypeSear
     setTypeSearches( e.target.value )
   }
 
-  const [isShowMore, setIsShowMore] = React.useState( true )
+  // const [isShowMore, setIsShowMore] = React.useState( true )
 
   // function handleClick() {
   //   setIsShowMore( !isShowMore )
@@ -55,11 +55,11 @@ export default function Search( { setPokemonSearches, options, type, setTypeSear
 
       {/* <span>Select type of Pokemon </span> */ }
       <Select value={ type } onChange={ handleSelectOnChange }>
-        <Option value={ INITIAL_VALUE }>{ INITIAL_VALUE }</Option>
-        <Option value={ ALL_TYPE }>{ ALL_TYPE }</Option>
+        <option value={ INITIAL_VALUE }>{ INITIAL_VALUE }</option>
+        <option value={ ALL_TYPE }>{ ALL_TYPE }</option>
         {
           options.map( ( { name }, i: number ) => {
-            return ( <Option key={ i } value={ name }>{ name }</Option> )
+            return ( <option key={ i } value={ name }>{ name }</option> )
           } )
         }
       </Select>

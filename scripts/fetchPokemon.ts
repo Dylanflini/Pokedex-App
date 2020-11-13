@@ -20,7 +20,7 @@ export interface Pokemon extends PokemonCard {
   height: number,
 }
 
-async function fetchPokemon( pokemonName: string ) {
+async function fetchPokemon( pokemonName: string | number ) {
 
   try {
 
