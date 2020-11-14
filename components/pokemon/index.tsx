@@ -1,9 +1,7 @@
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
-import { PokemonCard } from '../../scripts/fetchPokemon'
 import Card from '../card'
-import { Image } from '../card/styles'
+import styles from '../card/styles.module.scss'
 import PokemonTypes from '../pokemonTypes'
 import styled from '@emotion/styled'
 
@@ -23,9 +21,6 @@ type DivProps = {
   setIsLoading: ( boolean ) => void,
 };
 
-type Loading = {
-}
-
 const Pokemon = React.forwardRef<HTMLDivElement, DivProps>( ( { name, id, types, setIsLoading }, ref ) => {
 
   const imageUrl = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${ normalizeId( id ) }.png`
@@ -44,7 +39,7 @@ const Pokemon = React.forwardRef<HTMLDivElement, DivProps>( ( { name, id, types,
   }
 
   const LinkWithImage = () => (
-    <Image onClick={ toPokedex } src={ imageUrl } alt={ `pokemon ${ name }` } />
+    <img className={styles.img} onClick={ toPokedex } src={ imageUrl } alt={ `pokemon ${ name }` } />
   )
 
   return (

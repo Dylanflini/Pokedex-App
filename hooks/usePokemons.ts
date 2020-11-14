@@ -1,9 +1,8 @@
 /* this components it's for have all pokemon's name and types. Also filter by typeSearch and search component  */
 
-import React, { useEffect } from 'react'
-import { ALL_TYPE } from '../components/search';
+import React from 'react'
 import { PokemonsTypes } from '../scripts/fetchPokemonTypes';
-import { fetchByTypes, mergeTypes } from '../scripts/utils';
+import { applyAllFilter, fetchByTypes, mergeTypes, sortLessToGreater } from '../scripts/utils';
 
 export function usePokemons(
   types: PokemonsTypes[] = [],
@@ -19,13 +18,15 @@ export function usePokemons(
   const [isLoading, setIsLoading] = React.useState( false )
   const count = React.useRef( 0 )
 
+  const getAllPokemonsFilter = () => applyAllFilter( pokemonsFilter, pokemons, name, type, offset, limit )
+
   React.useEffect( () => {
     async function fetch() {
 
       if ( types.length > 0 && count.current === 0 ) {
         count.current = 1;
         setIsLoading( true )
-        setPokemons( mergeTypes( await fetchByTypes( types, [] ) ).sort( lessToGreater ) )
+        setPokemons( mergeTypes( await fetchByTypes( types, [] ) ).sort( sortLessToGreater ) )
         setIsLoading( false )
       }
 
@@ -37,73 +38,15 @@ export function usePokemons(
 
   React.useEffect( () => {
 
-    setPokemonsFilter( allFilter( pokemonsFilter, pokemons, name, type, offset, limit ) )
+    setPokemonsFilter( getAllPokemonsFilter )
 
   }, [pokemons] )
 
   React.useEffect( () => {
 
-    setIsLoading( true )
-    setPokemonsFilter( allFilter( pokemonsFilter, pokemons, name, type, offset, limit ) )
-    setIsLoading( false )
+    setPokemonsFilter( getAllPokemonsFilter )
 
   }, [name, type, limit] )
 
   return [pokemonsFilter, isLoading, setIsLoading] as const
-}
-
-function allFilter( pokemonsFilter, pokemons, name, type, offset, limit ) {
-
-  let x;
-
-  if ( name !== '' && name.length > 2 ) {
-    x = pokemons.filter( ( element ) => element.name.includes( name.toLowerCase() ) )
-
-    if ( type !== ALL_TYPE ) {
-
-      const v = x.filter( element => filterTypes( element.types, type ) )
-      return v
-    }
-
-    return x
-
-  }
-
-  if ( name === '' ) {
-    x = pokemons
-
-    if ( type !== ALL_TYPE ) {
-
-      const v = x.filter( element => filterTypes( element.types, type ) )
-      return v
-    }
-
-    return x.slice( offset, limit )
-
-  }
-
-  return pokemonsFilter
-
-}
-
-function filterTypes( types, type ) {
-
-  for ( let x of types ) {
-    if ( x.type.name === type ) {
-      return true
-    }
-  }
-
-  return false
-}
-
-
-const lessToGreater = ( prev, next ) => {
-  if ( prev.id > next.id ) {
-    return 1
-  }
-  if ( prev.id < next.id ) {
-    return -1
-  }
-  return 0
 }

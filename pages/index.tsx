@@ -2,6 +2,7 @@ import Head from 'next/head'
 import styled from '@emotion/styled'
 import React from 'react'
 import { ALL_TYPE, INITIAL_VALUE } from '../components/search'
+import Footer from '../components/footer'
 
 export const Container = styled.div`
   max-width: 1200px;
@@ -33,6 +34,7 @@ export default function Home( {
       <Container>
         { results }
       </Container>
+      <Footer text='© Pokedex App ' version=' - v1.0' />
     </div>
   )
 }

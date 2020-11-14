@@ -1,0 +1,18 @@
+.button {
+  width: 100%;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+}
+
+.right,
+.left {
+  fill: rgb(224, 0, 48);
+}
+
+.right {
+}
+
+.text {
+}

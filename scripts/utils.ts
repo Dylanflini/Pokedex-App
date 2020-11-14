@@ -1,8 +1,9 @@
 import { PokemonCard } from "./fetchPokemon"
 import { PokemonsTypes } from "./fetchPokemonTypes"
 import axios from 'axios'
+import { ALL_TYPE } from "../components/search"
 
-export function mergeTypes( allPokemons, index: number = 1 , max: number = 894) {
+export function mergeTypes( allPokemons, index: number = 1, max: number = 894 ) {
 
   if ( index >= max ) {
     return allPokemons.filter( element => element.id < 999 )
@@ -139,4 +140,61 @@ export function filterRelation( estatico, arr ) {
       return false
     }
   }
+}
+
+
+export function applyAllFilter( pokemonsFilter, pokemons, name, type, offset, limit ) {
+
+  let x;
+
+  if ( name !== '' && name.length > 2 ) {
+    x = pokemons.filter( ( element ) => element.name.includes( name.toLowerCase() ) )
+
+    if ( type !== ALL_TYPE ) {
+
+      const v = x.filter( element => filterTypes( element.types, type ) )
+      return v
+    }
+
+    return x
+
+  }
+
+  if ( name === '' ) {
+    x = pokemons
+
+    if ( type !== ALL_TYPE ) {
+
+      const v = x.filter( element => filterTypes( element.types, type ) )
+      return v
+    }
+
+    return x.slice( offset, limit )
+
+  }
+
+  return pokemonsFilter
+
+}
+
+export function filterTypes( types, type ) {
+
+  for ( let x of types ) {
+    if ( x.type.name === type ) {
+      return true
+    }
+  }
+
+  return false
+}
+
+
+export const sortLessToGreater = ( prev, next ) => {
+  if ( prev.id > next.id ) {
+    return 1
+  }
+  if ( prev.id < next.id ) {
+    return -1
+  }
+  return 0
 }

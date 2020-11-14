@@ -6,18 +6,11 @@ export const Form = styled.form`
 `
 
 export const Input = styled.input`
-  /* flex: 1 1 250px; */
-  /* width: 100%; */
-  min-width: 140px;
-  max-width: 350px;
-  padding: 4px;
+  width: 115px;
+  padding: 4px 0;
   height: 20px;
-  margin: 0 1rem;
+  margin: 0 .9rem;
 `
-
-// export const Option = styled.option`
-  /* font-size: 20px; */
-// `
 
 export const Select = styled.select`
   flex: 1 1 200px;

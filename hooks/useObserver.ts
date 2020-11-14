@@ -2,9 +2,10 @@ import React, { useCallback, useRef } from 'react'
 
 export function useObserver(
   action: ( any?) => any,
-  isWaiting: boolean = false,
+  dependencies: any[],
   hasMore: boolean = true,
-  dependencies: any[] ) {
+  isWaiting: boolean = false,
+  ) {
 
   const observer = useRef( null )
 

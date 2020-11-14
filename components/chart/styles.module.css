@@ -1,8 +1,6 @@
 .chart {
-  height: 100%;
   width: 100%;
   padding-top: 2rem;
-  margin-bottom: 2rem;
   display: grid;
   grid-template-columns: min-content auto;
   grid-template-rows: auto min-content;

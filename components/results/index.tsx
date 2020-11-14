@@ -1,23 +1,12 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import { useRouter } from 'next/router'
 import { PokemonCard } from '../../scripts/fetchPokemon'
 import Pokemon from '../pokemon'
-import { Loading, PokemonContainer } from './styles'
+import { PokemonContainer } from './styles'
 import { useObserver } from '../../hooks/useObserver'
-
-type result = {
-  pokemons: PokemonCard[],
-  isLoading: boolean,
-  isResultVisible: boolean,
-  setLimit: ( any ) => void,
-  limit: number,
-  setIsLoading: ( boolean ) => void,
-}
 
 export default function Results( {
   pokemons = [],
-  isLoading,
   isResultVisible = true,
   setLimit,
   limit,
@@ -26,19 +15,16 @@ export default function Results( {
 
   const router = useRouter()
 
-  console.log( 'route', router )
-
   const callBack = () => setLimit( limit + 20 )
 
-  const [lastPokemon] = useObserver( callBack, isLoading, limit <= pokemons.length, [limit] )
+  const [lastPokemon] = useObserver( callBack, [limit], limit <= pokemons.length )
 
   return (
     <>
-      {isLoading ? ReactDOM.createPortal( <Loading src="/loading.gif" />, document.body ) : null }
-      { pokemons.length === 0 && router.pathname === '/' ? <p>No pokemons Found</p> : null }
       {
         isResultVisible ?
           <PokemonContainer>
+            { pokemons.length === 0 && router.pathname === '/' ? <p>No pokemons Found</p> : null }
             {
               pokemons.map( ( pokemon: any, index: number ) => {
                 if ( pokemons.length === index + 1 ) {
@@ -68,4 +54,12 @@ export default function Results( {
       }
     </>
   )
+}
+
+type result = {
+  pokemons: PokemonCard[],
+  isResultVisible: boolean,
+  setLimit: ( any ) => void,
+  limit: number,
+  setIsLoading: ( boolean ) => void,
 }

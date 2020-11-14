@@ -1,28 +1,22 @@
 import React from 'react'
-// import styled from '@emotion/styled'
 // @ts-ignore
 import { chart, chart_bar } from './styles.module.css'
 import Bar from './Bar'
 import { AxisX, AxisY } from './Axis'
 
-type ChartType = {
-  axisY?: number,
-  axisX: any[],
-  data: any[],
-  maxValue: number,
-  holdValue?: boolean,
-}
 
 export default function Chart( {
   axisY = 4,
   axisX,
   data,
   maxValue = 400,
-  holdValue = true
+  holdValue = true,
+  height = '300px',
+  barColor = 'lightblue',
 }: ChartType ) {
 
   return (
-    <div className={ chart }>
+    <div style={ { height: `${ height }` } } className={ chart }>
       {
         isNoValidNumber( axisY ) ? <span ></span> : <AxisY data={ axisY } maxValue={ maxValue } />
       }
@@ -31,7 +25,7 @@ export default function Chart( {
           data.map( ( element, index ) => (
             <Bar
               key={ index }
-              color='lightblue'
+              color={ barColor }
               holdValue={ holdValue }
               value={ element }
               maxValue={ maxValue }
@@ -60,8 +54,14 @@ function isNoValidNumber( value: number ) {
     default:
       return true
   }
+}
 
-
-
-  return
+type ChartType = {
+  axisY?: number,
+  axisX: any[],
+  data: any[],
+  maxValue: number,
+  holdValue?: boolean,
+  height?: string,
+  barColor?: string,
 }

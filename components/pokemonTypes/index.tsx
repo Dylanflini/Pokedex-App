@@ -1,8 +1,7 @@
 import React from 'react'
-// import styledomponents'
-import styled from '@emotion/styled'
+import styles from './styles.module.css'
 
-export const TypesColors = [
+export const POKEMONS_TYPE_COLORS = [
   {
     "color": "#A4ACAF",
     "name": "normal"
@@ -89,28 +88,22 @@ function Container( { type, isDamageRelation, fontSize } ) {
 
   function x() {
     if ( isDamageRelation ) {
-      const { color } = TypesColors.find( element => element.name === type.name )
+      const { color } = POKEMONS_TYPE_COLORS.find( element => element.name === type.name )
       return color
     } else {
-      const { color } = TypesColors.find( element => element.name === type.type.name )
+      const { color } = POKEMONS_TYPE_COLORS.find( element => element.name === type.type.name )
       return color
     }
   }
 
-  const ContainerStyle = styled.div`
-  background: ${ x() };
-  color: white;
-  display: inline-block;
-  width: min-content;
-  font-size: ${ fontSize };
-  border-radius: 4px;
-  padding: calc(${ fontSize } * 0.36) calc(${ fontSize } * 0.72);
-  margin-top: 4px;
-  margin-right: 6px;
- `
+  const style = {
+    background: `${ x() }`,
+    fontSize: `${ fontSize }`,
+    padding: `calc( ${ fontSize } * 0.36 ) calc( ${ fontSize } * 0.72 )`,
+  }
 
   return (
-    <ContainerStyle>
+    <div style={ style } className={ styles.container } >
 
       {
         isDamageRelation ?
@@ -118,7 +111,7 @@ function Container( { type, isDamageRelation, fontSize } ) {
           :
           type.type.name
       }
-    </ContainerStyle>
+    </div>
   )
 }
 

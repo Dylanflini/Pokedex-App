@@ -3,10 +3,14 @@ import styled from '@emotion/styled'
 export const PokemonContainer = styled.div`
   --auto-grid-min-size: 9rem;
   background: white;
+  min-height: 85vh;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(var(--auto-grid-min-size), 1fr));
+  grid-template-rows: min-content; //importante
   grid-gap: 1rem;
   padding: 1rem;
+  padding-top: 2.5rem;
+  padding-bottom: 3.5rem;
 `
 
 export const Loading = styled.img`
@@ -18,12 +22,4 @@ export const Loading = styled.img`
   margin: 5px auto;
   display: block;
   z-index: 1000;
-`
-
-export const Container = styled.div`
-  margin: 0;
-  padding: 0;
-  margin: 0 6px;
-  overflow-x: scroll;
-  display: flex;
 `

@@ -6,13 +6,12 @@ import styled from '@emotion/styled'
 import { button, left } from './styles.module.css'
 import { toFirstUpperCase } from '../../scripts/toFirstUpperCase'
 import { PokemonCard } from '../../scripts/fetchPokemon'
-import { Loading } from '../results/styles'
+import Spinner from '../spinner'
 
-type buttonPokemonType = {
+type pokedexButtonsType = {
   previousPokemon: PokemonCard,
   nextPokemon: PokemonCard,
 }
-
 
 export const Text = styled.text`
   font-size: 1.4rem;
@@ -22,20 +21,16 @@ export const Text = styled.text`
   }
 `
 
-
-export default function ButtonPokemon( {
+export default function PokedexButtons( {
   previousPokemon,
   nextPokemon
-}: buttonPokemonType ) {
+}: pokedexButtonsType ) {
 
   const [isLoading, setIsLoading] = React.useState( false )
 
-  const toogleLoading = () => setIsLoading( !isLoading )
-
   React.useEffect( () => {
-    console.log( 'renderizado' )
-    console.log( isLoading )
     setIsLoading( false )
+    window.scrollTo( 0, 0 )
   }, [nextPokemon] )
 
 
@@ -47,7 +42,6 @@ export default function ButtonPokemon( {
   } )
 
   function keyboard( e ) {
-    console.log( e.key )
     switch ( e.key ) {
       case 'ArrowLeft':
         toPreviousPokemon()
@@ -61,12 +55,11 @@ export default function ButtonPokemon( {
     }
   }
 
-
   const router = useRouter()
 
   function toPreviousPokemon() {
 
-    toogleLoading()
+    setIsLoading( true )
 
     router.push( {
       pathname: `/pokedex/${ previousPokemon.name }`,
@@ -80,7 +73,7 @@ export default function ButtonPokemon( {
 
   function toNextPokemon() {
 
-    toogleLoading()
+    setIsLoading( true )
 
     router.push( {
       pathname: `/pokedex/${ nextPokemon.name }`,
@@ -109,7 +102,7 @@ export default function ButtonPokemon( {
   return (
     <Container >
 
-      {isLoading ? ReactDOM.createPortal( <Loading src="/loading.gif" />, document.body ) : null }
+      {isLoading ? ReactDOM.createPortal( <Spinner width={ 50 } />, document.body ) : null }
 
       <div onClick={ toPreviousPokemon } style={ { paddingRight: '.1rem' } } >
         <svg className={ `${ button }` } viewBox="0 0 371 74" xmlns="http://www.w3.org/2000/svg">

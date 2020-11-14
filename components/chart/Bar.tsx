@@ -1,14 +1,6 @@
 import React from 'react'
-import styled from '@emotion/styled'
 // @ts-ignore
 import { bar_label, bar } from './styles.module.css'
-
-type BarType = {
-  color?: string,
-  value: number,
-  maxValue: number,
-  holdValue: boolean,
-}
 
 export default function Bar( {
   color = '#e95858',
@@ -45,4 +37,11 @@ export default function Bar( {
     </>
 
   )
+}
+
+type BarType = {
+  color?: string,
+  value: number,
+  maxValue: number,
+  holdValue: boolean,
 }

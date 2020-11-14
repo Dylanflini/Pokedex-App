@@ -1,47 +1,15 @@
 import Head from 'next/head'
 import { fetchPokemon } from '../../scripts/fetchPokemon'
 import fetchPokemonDamageRelations from '../../scripts/fetchPokemonDamageRelations'
-import PokemonTypes from '../../components/pokemonTypes'
-import styled from '@emotion/styled'
-import normalizeId from '../../scripts/normalizeId'
 import React from 'react'
-import ReactDOM from 'react-dom'
-import Chart from '../../components/chart'
-import ButtonPokemon from '../../components/buttonPokemon'
 import { toFirstUpperCase } from '../../scripts/toFirstUpperCase'
 import { INITIAL_VALUE } from '../../components/search'
-import { formatData, formatHeight, formatWeight, getDamageRelation } from '../../scripts/utils'
+import { getDamageRelation } from '../../scripts/utils'
+// @ts-ignore
+import { container, title } from '../../components/pokedex/styles.module.scss'
+import { Pokedex } from '../../components/pokedex'
 
-const Image = styled.img`
-    width: 100%;
-    height: auto;
-    margin: 0 auto;
-`
-export const Container = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
-  min-height: 100vh;
-  background: white;
-  padding-bottom: 10%;
-`
-
-export const Title = styled.h1`
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-top: 1rem;
-`
-
-const PokedexContainer = styled.div`
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  padding: 1rem;
-`
-
-const Pokedex = ( {
+const PokedexName = ( {
   pokemon,
   advantage,
   weakness,
@@ -49,25 +17,21 @@ const Pokedex = ( {
   nextPokemon,
   results,
   setIsResultVisible,
-  setIsLoading,
   setTypeSearches,
+  setIsLoading,
 } ) => {
-
-  const [data, axisX] = formatData( pokemon.stats )
-
-  const [isRender, setIsRender] = React.useState( false )
 
   React.useEffect( () => {
     setIsResultVisible( false )
-    setTypeSearches( INITIAL_VALUE )
     setIsLoading( false )
-    setIsRender( true )
+    setTypeSearches( INITIAL_VALUE )
   }, [pokemon] )
 
+  React.useEffect( () => setIsResultVisible( false ), [] )
 
   return (
 
-    <Container>
+    <div className={ container }>
 
       <Head>
         <title>{ toFirstUpperCase( pokemon.name ) }</title>
@@ -78,112 +42,30 @@ const Pokedex = ( {
 
       { results }
 
-      <Title>{ pokemon.name.toUpperCase() }</Title>
-      <PokedexContainer>
+      <h1 className={ title }>{ pokemon.name.toUpperCase() }</h1>
 
-        <div style={ {
-          flex: '1 1 500px',
-          width: '100%',
-          textAlign: 'center',
-          // background: 'blue',
-        } } >
+      <Pokedex
+        pokemon={ pokemon }
+        advantage={ advantage }
+        weakness={ weakness }
+        previousPokemon={ previousPokemon }
+        nextPokemon={ nextPokemon }
+      />
 
-          <div style={ {
-            background: ' linear-gradient(to right, #83a4d4, #b6fbff)',
-            maxWidth: '400px',
-            width: '100%',
-            // height: '100%',
-            margin: '1rem auto',
-            padding: '1rem',
-            borderRadius: '4px',
-          } } >
-
-            <Image src={ `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${ normalizeId( pokemon.id ) }.png` } alt={ `Is the pokemon called ${ pokemon.name }` } />
-
-          </div>
-
-        </div>
-
-        <div style={ {
-          flex: '1 1 350px',
-          background: 'rgb(83, 166, 210)',
-          padding: '1rem',
-          margin: '1rem',
-          borderRadius: '4px',
-          width: '100%',
-          display: 'grid',
-          gridTemplateColumns: 'auto auto'
-
-        } } >
-          <div>
-            <h2>Type</h2>
-
-            <PokemonTypes fontSize='16px' types={ pokemon.types } />
-
-            <h2>Advantage</h2>
-
-            <PokemonTypes fontSize='16px' types={ advantage } isDamageRelation={ true } />
-
-            <h2>Weakness</h2>
-
-            <PokemonTypes fontSize='16px' types={ weakness } isDamageRelation={ true } />
-
-          </div>
-          <div>
-
-            <p>
-              Height: { formatHeight( pokemon.height ) }
-            </p>
-            <p>
-              Weight: { formatWeight( pokemon.weight ) }
-            </p>
-
-          </div>
-        </div>
-
-        <div
-          style={ {
-            flex: '1 1 400px',
-            alignSelf: 'flex-end',
-            height: '200px',
-            maxWidth: '600px',
-            background: 'none',
-            marginBottom: '2rem',
-          } } >
-
-          <Chart
-            axisY={ -1 }
-            axisX={ axisX }
-            data={ data }
-            maxValue={ Math.max( ...data ) }
-          />
-
-        </div>
-
-      </PokedexContainer>
-
-      {
-
-        isRender ?
-          ReactDOM.createPortal( <ButtonPokemon
-            previousPokemon={ previousPokemon }
-            nextPokemon={ nextPokemon }
-          />, document.body )
-          : null
-
-      }
-
-    </Container>
+    </div>
 
   )
 }
 
 
-Pokedex.getInitialProps = async ( ctx: any ) => {
+PokedexName.getInitialProps = async ( ctx: any ) => {
+
+  const firstIdPokemon = 1
+  const lastIdPokemon = 893
 
   const id = parseInt( ctx.query.id );
-  const previousId = id - 1;
-  const nextId = id + 1;
+  const previousId = id === firstIdPokemon ? lastIdPokemon : id - 1;
+  const nextId = id === lastIdPokemon ? firstIdPokemon : id + 1;
 
   const pokemonName = ctx.query.pokemonName.toLowerCase()
 
@@ -231,4 +113,4 @@ Pokedex.getInitialProps = async ( ctx: any ) => {
 
 }
 
-export default Pokedex
+export default PokedexName
