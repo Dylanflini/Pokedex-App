@@ -6,7 +6,7 @@ export const PokemonContainer = styled.div`
   min-height: 85vh;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(var(--auto-grid-min-size), 1fr));
-  grid-template-rows: min-content; //importante
+  grid-template-rows: repeat(4, min-content); //importante
   grid-gap: 1rem;
   padding: 1rem;
   padding-top: 2.5rem;
